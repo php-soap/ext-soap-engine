@@ -1,0 +1,59 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Soap\ExtSoapEngine\Metadata;
+
+use Soap\ExtSoapEngine\AbusedClient;
+use Soap\ExtSoapEngine\Metadata\Visitor\ListVisitor;
+use Soap\ExtSoapEngine\Metadata\Visitor\SimpleTypeVisitor;
+use Soap\ExtSoapEngine\Metadata\Visitor\UnionVisitor;
+use Soap\ExtSoapEngine\Metadata\Visitor\XsdTypeVisitorInterface;
+use Soap\Engine\Metadata\Collection\XsdTypeCollection;
+use Soap\Engine\Metadata\Model\XsdType;
+
+class XsdTypesParser
+{
+    /**
+     * @var XsdTypeVisitorInterface[]
+     */
+    private $visitors;
+
+    public function __construct(XsdTypeVisitorInterface ...$visitors)
+    {
+        $this->visitors = $visitors;
+    }
+
+    public static function default(): self
+    {
+        return new self(
+            new ListVisitor(),
+            new UnionVisitor(),
+            new SimpleTypeVisitor()
+        );
+    }
+
+    public function parse(AbusedClient $abusedClient): XsdTypeCollection
+    {
+        $collection = new XsdTypeCollection();
+        $soapTypes = $abusedClient->__getTypes();
+        foreach ($soapTypes as $soapType) {
+            if ($type = $this->detectXsdType($soapType)) {
+                $collection->add($type);
+            }
+        }
+
+        return $collection;
+    }
+
+    private function detectXsdType(string $soapType): ?XsdType
+    {
+        foreach ($this->visitors as $visitor) {
+            if ($type = $visitor($soapType)) {
+                return $type;
+            }
+        }
+
+        return null;
+    }
+}

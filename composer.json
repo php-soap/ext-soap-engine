@@ -1,0 +1,29 @@
+{
+    "name": "php-soap/ext-soap-engine",
+    "description": "An ext-soap engine implementation",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Soap\\ExtSoapEngine\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Toon Verwerft",
+            "email": "toonverwerft@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-soap": "*",
+        "php-soap/engine": "dev-main",
+        "symfony/options-resolver": "^5.3"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../engine"
+        }
+    ]
+}

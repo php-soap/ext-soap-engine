@@ -1,6 +1,8 @@
 <?php
 
-namespace Phpro\SoapClient\Wsdl\Provider;
+declare(strict_types=1);
+
+namespace Soap\ExtSoapEngine\Wsdl;
 
 use Soap\ExtSoapEngine\Wsdl\WsdlProvider;
 

@@ -8,6 +8,11 @@
             "Soap\\ExtSoapEngine\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "SoapTest\\ExtSoapEngine\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Toon Verwerft",
@@ -21,10 +26,23 @@
         "php-soap/engine": "dev-main",
         "symfony/options-resolver": "^5.3"
     },
+    "require-dev": {
+        "php-soap/engine-integration-tests": "dev-main",
+        "php-soap/xml": "dev-main",
+        "phpunit/phpunit": "^9.5"
+    },
     "repositories": [
         {
             "type": "path",
             "url": "../engine"
+        },
+        {
+            "type": "path",
+            "url": "../engine-integration-tests"
+        },
+        {
+            "type": "path",
+            "url": "../xml"
         }
     ]
 }

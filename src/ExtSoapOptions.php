@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine;
 
-use Phpro\SoapClient\Wsdl\Provider\PassThroughWsdlProvider;
 use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMapCollection;
 use Soap\ExtSoapEngine\Configuration\TypeConverter;
 use Soap\ExtSoapEngine\Exception\UnexpectedConfigurationException;
 use Soap\ExtSoapEngine\Configuration\TypeConverter\TypeConverterCollection;
+use Soap\ExtSoapEngine\Wsdl\PassThroughWsdlProvider;
 use Soap\ExtSoapEngine\Wsdl\WsdlProvider;
 
 final class ExtSoapOptions

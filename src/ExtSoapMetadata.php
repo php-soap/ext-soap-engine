@@ -15,7 +15,7 @@ use Soap\Engine\Metadata\Collection\XsdTypeCollection;
 final class ExtSoapMetadata implements Metadata
 {
     private AbusedClient $abusedClient;
-    private ?XsdTypeCollection $xsdTypes;
+    private ?XsdTypeCollection $xsdTypes = null;
 
     public function __construct(AbusedClient $abusedClient)
     {

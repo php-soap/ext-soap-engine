@@ -9,8 +9,8 @@ use Soap\Engine\HttpBinding\SoapResponse;
 
 final class AbusedClient extends \SoapClient
 {
-    private ?SoapRequest $storedRequest;
-    private ?SoapResponse $storedResponse;
+    private ?SoapRequest $storedRequest = null;
+    private ?SoapResponse $storedResponse = null;
 
     // @codingStandardsIgnoreStart
     /**

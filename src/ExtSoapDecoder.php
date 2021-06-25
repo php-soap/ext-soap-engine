@@ -8,7 +8,7 @@ use Soap\Engine\Decoder;
 use Soap\Engine\HttpBinding\SoapResponse;
 use Soap\ExtSoapEngine\Generator\DummyMethodArgumentsGenerator;
 
-class ExtSoapDecoder implements Decoder
+final class ExtSoapDecoder implements Decoder
 {
     private AbusedClient $client;
     private DummyMethodArgumentsGenerator $argumentsGenerator;

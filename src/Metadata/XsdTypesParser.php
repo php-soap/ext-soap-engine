@@ -12,12 +12,12 @@ use Soap\ExtSoapEngine\Metadata\Visitor\XsdTypeVisitorInterface;
 use Soap\Engine\Metadata\Collection\XsdTypeCollection;
 use Soap\Engine\Metadata\Model\XsdType;
 
-class XsdTypesParser
+final class XsdTypesParser
 {
     /**
      * @var XsdTypeVisitorInterface[]
      */
-    private $visitors;
+    private array $visitors;
 
     public function __construct(XsdTypeVisitorInterface ...$visitors)
     {
@@ -35,15 +35,15 @@ class XsdTypesParser
 
     public function parse(AbusedClient $abusedClient): XsdTypeCollection
     {
-        $collection = new XsdTypeCollection();
+        $collected = [];
         $soapTypes = $abusedClient->__getTypes();
         foreach ($soapTypes as $soapType) {
             if ($type = $this->detectXsdType($soapType)) {
-                $collection->add($type);
+                $collected[] = $type;
             }
         }
 
-        return $collection;
+        return new XsdTypeCollection(...$collected);
     }
 
     private function detectXsdType(string $soapType): ?XsdType

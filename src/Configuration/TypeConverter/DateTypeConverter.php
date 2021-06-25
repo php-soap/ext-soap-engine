@@ -10,30 +10,19 @@ use DOMDocument;
  * Class DateTypeConverter
  *
  * Converts between PHP \DateTime and SOAP date objects
- *
- * @package Soap\ExtSoapEngine\Configuration\TypeConverter
  */
-class DateTypeConverter implements TypeConverterInterface
+final class DateTypeConverter implements TypeConverterInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getTypeNamespace(): string
     {
         return 'http://www.w3.org/2001/XMLSchema';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getTypeName(): string
     {
         return 'date';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function convertXmlToPhp(string $data)
     {
         $doc = new DOMDocument();
@@ -46,9 +35,6 @@ class DateTypeConverter implements TypeConverterInterface
         return new DateTimeImmutable($doc->textContent);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function convertPhpToXml($php): string
     {
         if (!$php instanceof DateTimeInterface) {

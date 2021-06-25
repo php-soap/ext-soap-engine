@@ -12,7 +12,7 @@ use Soap\Engine\Metadata\Collection\MethodCollection;
 use Soap\Engine\Metadata\Collection\TypeCollection;
 use Soap\Engine\Metadata\Collection\XsdTypeCollection;
 
-class ExtSoapMetadata implements Metadata
+final class ExtSoapMetadata implements Metadata
 {
     private AbusedClient $abusedClient;
     private ?XsdTypeCollection $xsdTypes;

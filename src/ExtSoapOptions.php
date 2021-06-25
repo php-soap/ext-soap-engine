@@ -4,44 +4,24 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine;
 
-use Phpro\Transport\Exception\UnexpectedConfigurationException;
-use Phpro\Transport\Soap\ClassMap\ClassMapCollection;
-use Soap\ExtSoapEngine\Metadata\Manipulators\DuplicateTypes\IntersectDuplicateTypesStrategy;
-use Soap\Engine\Metadata\Manipulators\TypesManipulatorChain;
-use Soap\Engine\Metadata\MetadataOptions;
-use Phpro\Transport\Soap\TypeConverter;
+use Phpro\SoapClient\Wsdl\Provider\PassThroughWsdlProvider;
+use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMapCollection;
+use Soap\ExtSoapEngine\Configuration\TypeConverter;
+use Soap\ExtSoapEngine\Exception\UnexpectedConfigurationException;
 use Soap\ExtSoapEngine\Configuration\TypeConverter\TypeConverterCollection;
-use Phpro\SoapClient\Wsdl\Provider\MixedWsdlProvider;
-use Phpro\SoapClient\Wsdl\Provider\WsdlProviderInterface;
+use Soap\ExtSoapEngine\Wsdl\WsdlProvider;
 
-class ExtSoapOptions
+final class ExtSoapOptions
 {
-    /**
-     * @var string
-     */
-    private $wsdl;
-
-    /**
-     * @var array
-     */
-    private $options;
-
-    /**
-     * @var WsdlProviderInterface
-     */
-    private $wsdlProvider;
-
-    /**
-     * @var MetadataOptions
-     */
-    private $metadataOptions;
+    private string $wsdl;
+    private array $options;
+    private WsdlProvider $wsdlProvider;
 
     public function __construct(string $wsdl, array $options = [])
     {
         $this->wsdl = $wsdl;
         $this->options = $options;
-        $this->wsdlProvider = new MixedWsdlProvider();
-        $this->metadataOptions = MetadataOptions::empty();
+        $this->wsdlProvider = new PassThroughWsdlProvider();
     }
 
     public static function defaults(string $wsdl, array $options = []): self
@@ -66,15 +46,7 @@ class ExtSoapOptions
                     $options
                 )
             )
-        )->withMetadataOptions(static function (MetadataOptions $options): MetadataOptions {
-            // Ext-soap is not able to work with duplicate types (see FAQ)
-            // Therefore, we decided to combine all duplicate types into 1 big intersected type instead.
-            // Therefore it will always be usable, but might contain some empty properties.
-            // It has it's limitations but it is workable until ext-soap handles XSD namespaces properly.
-            return $options->withTypesManipulator(new TypesManipulatorChain(
-                new IntersectDuplicateTypesStrategy()
-            ));
-        });
+        );
     }
 
     public function getWsdl(): string
@@ -87,7 +59,7 @@ class ExtSoapOptions
         return $this->options;
     }
 
-    public function withWsdlProvider(WsdlProviderInterface $wsdlProvider): self
+    public function withWsdlProvider(WsdlProvider $wsdlProvider): self
     {
         $this->wsdlProvider = $wsdlProvider;
 
@@ -131,18 +103,6 @@ class ExtSoapOptions
         $this->options['cache_wsdl'] = WSDL_CACHE_NONE;
 
         return $this;
-    }
-
-    public function withMetadataOptions(callable $manipulator): self
-    {
-        $this->metadataOptions = $manipulator($this->metadataOptions);
-
-        return $this;
-    }
-
-    public function getMetadataOptions(): MetadataOptions
-    {
-        return $this->metadataOptions;
     }
 
     private function fetchOptionOfTypeWithDefault(string $key, string $type, $default)

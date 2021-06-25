@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\Exception;
 
-use Soap\Engine\RuntimeException;
+use Soap\Engine\Exception\RuntimeException;
 
 class UnexpectedConfigurationException extends RuntimeException
 {

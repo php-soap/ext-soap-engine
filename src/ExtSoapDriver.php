@@ -9,10 +9,11 @@ use Soap\Engine\Driver;
 use Soap\Engine\Encoder;
 use Soap\Engine\HttpBinding\SoapRequest;
 use Soap\Engine\HttpBinding\SoapResponse;
+use Soap\Engine\Metadata\LazyInMemoryMetadata;
 use Soap\Engine\Metadata\Metadata;
 use Soap\ExtSoapEngine\Generator\DummyMethodArgumentsGenerator;
 
-class ExtSoapDriver implements Driver
+final class ExtSoapDriver implements Driver
 {
     private AbusedClient $client;
     private Encoder $encoder;
@@ -37,13 +38,13 @@ class ExtSoapDriver implements Driver
 
         return self::createFromClient(
             $client,
-            MetadataFactory::manipulated(new ExtSoapMetadata($client), $options->getMetadataOptions())
+            new LazyInMemoryMetadata(new ExtSoapMetadata($client))
         );
     }
 
     public static function createFromClient(AbusedClient $client, Metadata $metadata = null): self
     {
-        $metadata = $metadata ?? MetadataFactory::lazy(new ExtSoapMetadata($client));
+        $metadata = $metadata ?? new LazyInMemoryMetadata(new ExtSoapMetadata($client));
 
         return new self(
             $client,

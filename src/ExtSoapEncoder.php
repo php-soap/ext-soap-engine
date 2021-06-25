@@ -7,7 +7,7 @@ namespace Soap\ExtSoapEngine;
 use Soap\Engine\Encoder;
 use Soap\Engine\HttpBinding\SoapRequest;
 
-class ExtSoapEncoder implements Encoder
+final class ExtSoapEncoder implements Encoder
 {
     private AbusedClient $client;
 

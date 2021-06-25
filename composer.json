@@ -17,6 +17,7 @@
     "require": {
         "php": "^7.4 || ^8.0",
         "ext-soap": "*",
+        "ext-dom": "*",
         "php-soap/engine": "dev-main",
         "symfony/options-resolver": "^5.3"
     },

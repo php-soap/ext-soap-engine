@@ -11,7 +11,7 @@ use Soap\ExtSoapEngine\Configuration\TypeConverter\TypeConverterInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ExtSoapOptionsResolverFactory
+final class ExtSoapOptionsResolverFactory
 {
     public static function createForWsdl($wsdl): OptionsResolver
     {

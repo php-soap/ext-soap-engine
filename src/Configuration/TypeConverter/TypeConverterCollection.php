@@ -6,12 +6,12 @@ use IteratorAggregate;
 use Phpro\SoapClient\Exception\InvalidArgumentException;
 use Traversable;
 
-class TypeConverterCollection implements IteratorAggregate
+final class TypeConverterCollection implements IteratorAggregate
 {
     /**
      * @var array|TypeConverterInterface[]
      */
-    protected $converters = [];
+    private array $converters = [];
 
     /**
      * Construct type converter collection

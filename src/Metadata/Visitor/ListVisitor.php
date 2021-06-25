@@ -6,7 +6,7 @@ namespace Soap\ExtSoapEngine\Metadata\Visitor;
 
 use Soap\Engine\Metadata\Model\XsdType;
 
-class ListVisitor implements XsdTypeVisitorInterface
+final class ListVisitor implements XsdTypeVisitorInterface
 {
     public function __invoke(string $soapType): ?XsdType
     {

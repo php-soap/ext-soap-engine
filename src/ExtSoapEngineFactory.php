@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine;
 
-
-use Soap\Engine\Engine;
 use Soap\Engine\SimpleEngine;
 use Soap\Engine\Transport;
 use Soap\ExtSoapEngine\Transport\ExtSoapClientTransport;
 
-class ExtSoapEngineFactory
+final class ExtSoapEngineFactory
 {
     public static function fromOptions(ExtSoapOptions $options): SimpleEngine
     {

@@ -96,6 +96,7 @@ This package provides following engine components:
 
 In ext-soap, there are some well known issues regarding the HTTP layer.
 Therefore we recommend using the [PSR-18 based transport](https://github.com/php-soap/psr18-transport/) instead of the once above.
+Besides dealing with some issues, it also provides a set of middleware for dealing with some common issues you might not be able to solve with the regular SoapClient.
 
 
 ## Configuration options

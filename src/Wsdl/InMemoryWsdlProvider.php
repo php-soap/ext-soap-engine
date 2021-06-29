@@ -9,7 +9,7 @@ namespace Soap\ExtSoapEngine\Wsdl;
  */
 class InMemoryWsdlProvider implements WsdlProvider
 {
-    public function provide(string $location): string
+    public function __invoke(string $location): string
     {
         return 'data://text/plain;base64,'.base64_encode($location);
     }

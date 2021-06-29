@@ -18,7 +18,7 @@ class CallbackWsdlProvider implements WsdlProvider
         $this->loader = $loader;
     }
 
-    public function provide(string $location): string
+    public function __invoke(string $location): string
     {
         return ($this->loader)($location);
     }

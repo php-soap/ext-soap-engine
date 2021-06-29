@@ -12,7 +12,7 @@ use Soap\ExtSoapEngine\Wsdl\WsdlProvider;
  */
 class PassThroughWsdlProvider implements WsdlProvider
 {
-    public function provide(string $source): string
+    public function __invoke(string $source): string
     {
         return $source;
     }

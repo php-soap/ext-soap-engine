@@ -10,5 +10,5 @@ interface WsdlProvider
      * This method can be used to transform a location into another location.
      * The output needs to be processable by the SoapClient $wsdl option.
      */
-    public function provide(string $location): string;
+    public function __invoke(string $location): string;
 }

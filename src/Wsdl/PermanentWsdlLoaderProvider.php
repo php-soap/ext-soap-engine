@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\Wsdl;
 
+use Soap\ExtSoapEngine\Wsdl\Naming\Md5Strategy;
 use Soap\ExtSoapEngine\Wsdl\Naming\NamingStrategy;
 use Soap\Wsdl\Loader\WsdlLoader;
 use function Psl\Filesystem\exists;
@@ -14,15 +15,16 @@ final class PermanentWsdlLoaderProvider implements WsdlProvider
 
     public function __construct(
         private WsdlLoader $loader,
-        private NamingStrategy $namingStrategy,
-        private ?string $cacheDir
+        private ?NamingStrategy $namingStrategy = null,
+        private ?string $cacheDir = null
     ){
     }
 
     public function __invoke(string $location): string
     {
         $cacheDir = $this->cacheDir ?? sys_get_temp_dir();
-        $file = $cacheDir . DIRECTORY_SEPARATOR . ($this->namingStrategy)($location);
+        $namingStrategy = $this->namingStrategy ?? new Md5Strategy();
+        $file = $cacheDir . DIRECTORY_SEPARATOR . $namingStrategy($location);
 
         if (!$this->downloadForced && exists($file)) {
             return $file;

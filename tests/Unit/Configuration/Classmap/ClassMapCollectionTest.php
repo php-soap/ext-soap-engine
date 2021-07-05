@@ -24,4 +24,16 @@ class ClassMapCollectionTest extends TestCase
             'double' => $item2,
         ], iterator_to_array($classMap));
     }
+
+    /** @test */
+    public function it_can_add_types(): void
+    {
+        $classMap = new ClassMapCollection();
+        $classMap->set($item1 = new ClassMap('wsdlType', 'phpType'));
+        $classMap->set($item2 = new ClassMap('wsdlType', 'phpType'));
+
+        self::assertSame([
+            'wsdlType' => $item2,
+        ], iterator_to_array($classMap));
+    }
 }

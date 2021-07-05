@@ -51,7 +51,7 @@ final class ExtSoapOptions
 
     public function getWsdl(): string
     {
-        return $this->wsdlProvider->provide($this->wsdl);
+        return ($this->wsdlProvider)($this->wsdl);
     }
 
     public function getOptions(): array

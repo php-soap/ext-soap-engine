@@ -12,6 +12,7 @@ use Soap\ExtSoapEngine\Exception\UnexpectedConfigurationException;
 use Soap\ExtSoapEngine\ExtSoapOptions;
 use Soap\ExtSoapEngine\ExtSoapOptionsResolverFactory;
 use Soap\ExtSoapEngine\Wsdl\CallbackWsdlProvider;
+use Soap\ExtSoapEngine\Wsdl\WsdlProvider;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ExtSoapOptionsTest extends TestCase
@@ -79,10 +80,11 @@ class ExtSoapOptionsTest extends TestCase
     /** @test */
     function it_is_possible_to_attach_a_wsdl_provider()
     {
-        $wsdlProvider = new CallbackWsdlProvider(function ($wsdl) {
-            $this->assertSame($this->wsdl, $wsdl);
-            return 'new.wsdl';
-        });
+        $wsdlProvider = new class implements WsdlProvider {
+            public function __invoke(string $wsdl): string {
+                return 'new.wsdl';
+            }
+        };
 
         $options = ExtSoapOptions::defaults($this->wsdl, [])
             ->withWsdlProvider($wsdlProvider);

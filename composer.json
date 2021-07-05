@@ -23,7 +23,9 @@
         "php": "^8.0",
         "ext-soap": "*",
         "ext-dom": "*",
+        "azjezz/psl": "^1.7",
         "php-soap/engine": "dev-main",
+        "php-soap/wsdl": "dev-main",
         "symfony/options-resolver": "^5.3"
     },
     "require-dev": {
@@ -43,6 +45,10 @@
         {
             "type": "path",
             "url": "../xml"
+        },
+        {
+            "type": "path",
+            "url": "../wsdl"
         }
     ]
 }

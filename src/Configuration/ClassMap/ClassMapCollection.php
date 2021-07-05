@@ -19,6 +19,18 @@ final class ClassMapCollection implements IteratorAggregate
         }
     }
 
+    public function set(ClassMapInterface $classMap): self
+    {
+        $this->classMaps[$classMap->getWsdlType()] = $classMap;
+
+        return $this;
+    }
+
+    public function has(ClassMapInterface $classMap): bool
+    {
+        return array_key_exists($classMap->getWsdlType(), $this->classMaps);
+    }
+
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->classMaps);

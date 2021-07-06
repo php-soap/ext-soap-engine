@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\Metadata;
 
-use Soap\ExtSoapEngine\AbusedClient;
+use SoapClient;
 use Soap\ExtSoapEngine\Metadata\Visitor\ListVisitor;
 use Soap\ExtSoapEngine\Metadata\Visitor\SimpleTypeVisitor;
 use Soap\ExtSoapEngine\Metadata\Visitor\UnionVisitor;
@@ -33,10 +33,10 @@ final class XsdTypesParser
         );
     }
 
-    public function parse(AbusedClient $abusedClient): XsdTypeCollection
+    public function parse(SoapClient $client): XsdTypeCollection
     {
         $collected = [];
-        $soapTypes = $abusedClient->__getTypes();
+        $soapTypes = $client->__getTypes();
         foreach ($soapTypes as $soapType) {
             if ($type = $this->detectXsdType($soapType)) {
                 $collected[] = $type;

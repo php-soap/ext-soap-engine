@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Soap\ExtSoapEngine\Metadata;
 
 use Soap\Engine\Metadata\Collection\PropertyCollection;
-use Soap\ExtSoapEngine\AbusedClient;
 use Soap\Engine\Metadata\Collection\TypeCollection;
 use Soap\Engine\Metadata\Collection\XsdTypeCollection;
 use Soap\Engine\Metadata\Model\Property;
 use Soap\Engine\Metadata\Model\Type;
 use Soap\Engine\Metadata\Model\XsdType;
+use SoapClient;
 
 final class TypesParser
 {
@@ -24,10 +24,10 @@ final class TypesParser
         $this->xsdTypes = $xsdTypes;
     }
 
-    public function parse(AbusedClient $abusedClient): TypeCollection
+    public function parse(SoapClient $client): TypeCollection
     {
         $collected = [];
-        $soapTypes = $abusedClient->__getTypes();
+        $soapTypes = $client->__getTypes();
         foreach ($soapTypes as $soapType) {
             $properties = [];
             $lines = explode("\n", $soapType);

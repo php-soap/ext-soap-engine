@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\Metadata;
 
+use SoapClient;
 use Soap\Engine\Metadata\Collection\ParameterCollection;
-use Soap\ExtSoapEngine\AbusedClient;
 use Soap\Engine\Metadata\Collection\MethodCollection;
 use Soap\Engine\Metadata\Collection\XsdTypeCollection;
 use Soap\Engine\Metadata\Model\Method;
@@ -21,13 +21,13 @@ final class MethodsParser
         $this->xsdTypes = $xsdTypes;
     }
 
-    public function parse(AbusedClient $abusedClient): MethodCollection
+    public function parse(SoapClient $client): MethodCollection
     {
         return new MethodCollection(...array_map(
             function (string $methodString) {
                 return $this->parseMethodFromString($methodString);
             },
-            $abusedClient->__getFunctions()
+            $client->__getFunctions()
         ));
     }
 
@@ -50,7 +50,7 @@ final class MethodsParser
     {
         preg_match('/\((.*)\)/', $methodString, $properties);
         if (!$properties[1]) {
-            return [];
+            return new ParameterCollection();
         }
 
         $parameters = preg_split('/,\s?/', $properties[1]);

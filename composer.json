@@ -32,23 +32,5 @@
         "php-soap/engine-integration-tests": "dev-main",
         "php-soap/xml": "dev-main",
         "phpunit/phpunit": "^9.5"
-    },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../engine"
-        },
-        {
-            "type": "path",
-            "url": "../engine-integration-tests"
-        },
-        {
-            "type": "path",
-            "url": "../xml"
-        },
-        {
-            "type": "path",
-            "url": "../wsdl"
-        }
-    ]
+    }
 }

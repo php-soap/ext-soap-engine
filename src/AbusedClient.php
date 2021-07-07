@@ -6,6 +6,7 @@ namespace Soap\ExtSoapEngine;
 
 use Soap\Engine\HttpBinding\SoapRequest;
 use Soap\Engine\HttpBinding\SoapResponse;
+use Soap\ExtSoapEngine\Exception\RequestException;
 
 final class AbusedClient extends \SoapClient
 {
@@ -65,8 +66,7 @@ final class AbusedClient extends \SoapClient
     public function collectRequest(): SoapRequest
     {
         if (!$this->storedRequest) {
-            // TODO : use real exception
-            throw new \RuntimeException('No request has been registered yet.');
+            throw RequestException::noRequestWasMadeYet();
         }
 
         return $this->storedRequest;

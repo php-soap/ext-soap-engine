@@ -7,8 +7,9 @@ namespace Soap\ExtSoapEngine;
 use Soap\Engine\HttpBinding\SoapRequest;
 use Soap\Engine\HttpBinding\SoapResponse;
 use Soap\ExtSoapEngine\Exception\RequestException;
+use SoapClient;
 
-final class AbusedClient extends \SoapClient
+final class AbusedClient extends SoapClient
 {
     private ?SoapRequest $storedRequest = null;
     private ?SoapResponse $storedResponse = null;

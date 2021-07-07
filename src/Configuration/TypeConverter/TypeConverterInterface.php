@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\Configuration\TypeConverter;
 
@@ -14,14 +14,12 @@ interface TypeConverterInterface
     /**
      * Get type namespace.
      *
-     * @return string
      */
     public function getTypeNamespace(): string;
 
     /**
      * Get type name.
      *
-     * @return string
      */
     public function getTypeName(): string;
 
@@ -39,7 +37,6 @@ interface TypeConverterInterface
      *
      * @param mixed $php PHP type
      *
-     * @return string
      */
     public function convertPhpToXml($php): string;
 }

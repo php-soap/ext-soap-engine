@@ -13,7 +13,7 @@ use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMapCollection;
 use Soap\ExtSoapEngine\ExtSoapEncoder;
 use Soap\ExtSoapEngine\ExtSoapOptions;
 
-class ExtSoapEncoderTest extends AbstractEncoderTest
+final class ExtSoapEncoderTest extends AbstractEncoderTest
 {
     private ExtSoapEncoder $encoder;
 

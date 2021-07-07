@@ -10,7 +10,7 @@ use Soap\ExtSoapEngine\AbusedClient;
 use Soap\ExtSoapEngine\ExtSoapMetadata;
 use Soap\ExtSoapEngine\Generator\DummyMethodArgumentsGenerator;
 
-class AbusedClientTest extends TestCase
+final class AbusedClientTest extends TestCase
 {
     /**
      * @var AbusedClient
@@ -22,8 +22,8 @@ class AbusedClientTest extends TestCase
         $this->client = new AbusedClient($wsdl, $options);
     }
 
-    /** @test */
-    function it_can_encode_with_typemap()
+    
+    public function test_it_can_encode_with_typemap()
     {
         $this->configureForWsdl(FIXTURE_DIR.'/wsdl/functional/string.wsdl', [
             'typemap' => $this->generateHelloTypeMap('string'),
@@ -32,18 +32,19 @@ class AbusedClientTest extends TestCase
         $this->client->__soapCall('validate', ['goodbye']);
         $encoded = $this->client->collectRequest();
 
-        $this->assertStringContainsString('hello', $encoded->getRequest());
-        $this->assertStringNotContainsString('goodbye', $encoded->getRequest());
+        static::assertStringContainsString('hello', $encoded->getRequest());
+        static::assertStringNotContainsString('goodbye', $encoded->getRequest());
     }
 
-    /** @test */
-    function it_can_decode_with_typemap()
+    
+    public function test_it_can_decode_with_typemap()
     {
         $this->configureForWsdl(FIXTURE_DIR.'/wsdl/functional/string.wsdl', [
             'typemap' => $this->generateHelloTypeMap('string'),
         ]);
 
-        $this->client->registerResponse($this->generateSoapResponse(<<<EOB
+        $this->client->registerResponse($this->generateSoapResponse(
+            <<<EOB
 <application:validate>
     <output xsi:type="xsd:string">goodbye</output>
 </application:validate>
@@ -54,17 +55,18 @@ EOB
         $payload = (new DummyMethodArgumentsGenerator($metadata))->generateForSoapCall('validate');
         $decoded = $this->client->__soapCall('validate', $payload);
 
-        $this->assertSame('hello', $decoded);
+        static::assertSame('hello', $decoded);
     }
 
-    /** @test */
-    function it_can_decode_with_more_complex_types()
+    
+    public function test_it_can_decode_with_more_complex_types()
     {
         $this->configureForWsdl(FIXTURE_DIR.'/wsdl/functional/string.wsdl', [
             'typemap' => $this->generateHelloTypeMap('string'),
         ]);
 
-        $this->client->registerResponse($this->generateSoapResponse(<<<EOB
+        $this->client->registerResponse($this->generateSoapResponse(
+            <<<EOB
 <application:validate>
     <response xsi:type="application:ValidateResponse">
         <output xsi:type="xsd:string">goodbye</output>
@@ -77,7 +79,7 @@ EOB
         $payload = (new DummyMethodArgumentsGenerator($metadata))->generateForSoapCall('validate');
         $decoded = $this->client->__soapCall('validate', $payload);
 
-        $this->assertSame('hello', $decoded);
+        static::assertSame('hello', $decoded);
     }
 
     private function generateSoapResponse(string $body): SoapResponse
@@ -106,10 +108,10 @@ EORESPONSE;
             [
                 'type_name' => $xsdType,
                 'type_ns'   => 'http://www.w3.org/2001/XMLSchema',
-                'from_xml'  => function () {
+                'from_xml'  => static function () {
                     return 'hello';
                 },
-                'to_xml'    => function () {
+                'to_xml'    => static function () {
                     return '<d>hello</d>';
                 },
             ],

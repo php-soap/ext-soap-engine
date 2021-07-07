@@ -15,7 +15,7 @@ use Soap\ExtSoapEngine\ExtSoapMetadata;
 use Soap\ExtSoapEngine\ExtSoapOptions;
 use Soap\ExtSoapEngine\Generator\DummyMethodArgumentsGenerator;
 
-class ExtSoapDecoderTest extends AbstractDecoderTest
+final class ExtSoapDecoderTest extends AbstractDecoderTest
 {
     private ExtSoapDecoder $decoder;
 

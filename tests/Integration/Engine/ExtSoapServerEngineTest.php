@@ -6,14 +6,14 @@ namespace SoapTest\ExtSoapEngine\Integration\Engine;
 
 use Soap\Engine\Engine;
 use Soap\Engine\SimpleEngine;
-use Soap\Engine\Transport;
 use Soap\EngineIntegrationTests\AbstractEngineTest;
 use Soap\ExtSoapEngine\AbusedClient;
 use Soap\ExtSoapEngine\ExtSoapDriver;
 use Soap\ExtSoapEngine\ExtSoapOptions;
 use Soap\ExtSoapEngine\Transport\ExtSoapServerTransport;
+use SoapServer;
 
-class ExtSoapServerEngineTest extends AbstractEngineTest
+final class ExtSoapServerEngineTest extends AbstractEngineTest
 {
     private Engine $engine;
 
@@ -47,11 +47,12 @@ class ExtSoapServerEngineTest extends AbstractEngineTest
         );
     }
 
-    private function mockServerForWsdl(string $wsdl): \SoapServer
+    private function mockServerForWsdl(string $wsdl): SoapServer
     {
-        $server = new \SoapServer($wsdl, ['soap_version' => SOAP_1_2]);
+        $server = new SoapServer($wsdl, ['soap_version' => SOAP_1_2]);
         $server->setObject(new class() {
-            public function GetCityWeatherByZIP($zip) {
+            public function GetCityWeatherByZIP($zip)
+            {
                 return [
                     'GetCityWeatherByZIPResult' => [
                         'WeatherID' => 1,

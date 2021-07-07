@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\Metadata;
 
-use SoapClient;
-use Soap\Engine\Metadata\Collection\ParameterCollection;
 use Soap\Engine\Metadata\Collection\MethodCollection;
+use Soap\Engine\Metadata\Collection\ParameterCollection;
 use Soap\Engine\Metadata\Collection\XsdTypeCollection;
 use Soap\Engine\Metadata\Model\Method;
 use Soap\Engine\Metadata\Model\Parameter;
 use Soap\Engine\Metadata\Model\XsdType;
+use SoapClient;
 
 final class MethodsParser
 {
@@ -55,7 +55,7 @@ final class MethodsParser
 
         return new ParameterCollection(...array_map(
             function (string $parameter): Parameter {
-                list($type, $name) = explode(' ', trim($parameter));
+                [$type, $name] = explode(' ', trim($parameter));
 
                 return new Parameter(
                     ltrim($name, '$'),

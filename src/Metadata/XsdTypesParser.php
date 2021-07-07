@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\Metadata;
 
-use SoapClient;
+use Soap\Engine\Metadata\Collection\XsdTypeCollection;
+use Soap\Engine\Metadata\Model\XsdType;
 use Soap\ExtSoapEngine\Metadata\Visitor\ListVisitor;
 use Soap\ExtSoapEngine\Metadata\Visitor\SimpleTypeVisitor;
 use Soap\ExtSoapEngine\Metadata\Visitor\UnionVisitor;
 use Soap\ExtSoapEngine\Metadata\Visitor\XsdTypeVisitorInterface;
-use Soap\Engine\Metadata\Collection\XsdTypeCollection;
-use Soap\Engine\Metadata\Model\XsdType;
+use SoapClient;
 
 final class XsdTypesParser
 {

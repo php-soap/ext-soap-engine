@@ -14,7 +14,7 @@ final class TemporaryWsdlLoaderProvider implements WsdlProvider
         private WsdlLoader $loader,
         private ?NamingStrategy $namingStrategy = null,
         private ?string $cacheDir = null
-    ){
+    ) {
     }
 
     public function __invoke(string $location): string

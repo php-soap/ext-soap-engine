@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace SoapTest\ExtSoapEngine\Integration;
 
 use PHPUnit\Framework\TestCase;
-use Soap\ExtSoapEngine\Configuration\TypeConverter;
 use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMap;
 use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMapCollection;
+use Soap\ExtSoapEngine\Configuration\TypeConverter;
 use Soap\ExtSoapEngine\Exception\UnexpectedConfigurationException;
 use Soap\ExtSoapEngine\ExtSoapOptions;
 use Soap\ExtSoapEngine\ExtSoapOptionsResolverFactory;
-use Soap\ExtSoapEngine\Wsdl\CallbackWsdlProvider;
 use Soap\ExtSoapEngine\Wsdl\WsdlProvider;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ExtSoapOptionsTest extends TestCase
+final class ExtSoapOptionsTest extends TestCase
 {
     /**
      * @var string
@@ -33,37 +32,37 @@ class ExtSoapOptionsTest extends TestCase
         $this->resolver = ExtSoapOptionsResolverFactory::createForWsdl($this->wsdl);
     }
 
-    /** @test */
-    function it_is_possible_to_construct_from_empty_state()
+    
+    public function test_it_is_possible_to_construct_from_empty_state()
     {
         $options = new ExtSoapOptions($this->wsdl, $expectedOptions = ['trace' => true]);
-        $this->assertSame($this->wsdl, $options->getWsdl());
-        $this->assertSame($expectedOptions, $options->getOptions());
+        static::assertSame($this->wsdl, $options->getWsdl());
+        static::assertSame($expectedOptions, $options->getOptions());
     }
 
-    /** @test */
-    function it_contains_a_wsdl()
+    
+    public function test_it_contains_a_wsdl()
     {
         $wsdl = ExtSoapOptions::defaults($this->wsdl)->getWsdl();
-        $this->assertSame($wsdl, $this->wsdl);
+        static::assertSame($wsdl, $this->wsdl);
     }
 
-    /** @test */
-    function it_can_resolve_defaults()
+    
+    public function test_it_can_resolve_defaults()
     {
         $options = $this->resolver->resolve(
             ExtSoapOptions::defaults($this->wsdl, [])->getOptions()
         );
 
-        $this->assertTrue($options['trace']);
-        $this->assertTrue($options['exceptions']);
-        $this->assertSame(WSDL_CACHE_DISK, $options['cache_wsdl']);
-        $this->assertSame(SOAP_SINGLE_ELEMENT_ARRAYS, $options['features']);
-        $this->assertIsArray($options['typemap']);
+        static::assertTrue($options['trace']);
+        static::assertTrue($options['exceptions']);
+        static::assertSame(WSDL_CACHE_DISK, $options['cache_wsdl']);
+        static::assertSame(SOAP_SINGLE_ELEMENT_ARRAYS, $options['features']);
+        static::assertIsArray($options['typemap']);
     }
 
-    /** @test */
-    function it_is_possible_to_overwrite_defaults()
+    
+    public function test_it_is_possible_to_overwrite_defaults()
     {
         $options = $this->resolver->resolve(
             ExtSoapOptions::defaults($this->wsdl, [
@@ -72,16 +71,17 @@ class ExtSoapOptionsTest extends TestCase
             ])->getOptions()
         );
 
-        $this->assertFalse($options['trace']);
-        $this->assertTrue($options['exceptions']);
-        $this->assertSame($proxyHost, $options['proxy_host']);
+        static::assertFalse($options['trace']);
+        static::assertTrue($options['exceptions']);
+        static::assertSame($proxyHost, $options['proxy_host']);
     }
 
-    /** @test */
-    function it_is_possible_to_attach_a_wsdl_provider()
+    
+    public function test_it_is_possible_to_attach_a_wsdl_provider()
     {
         $wsdlProvider = new class implements WsdlProvider {
-            public function __invoke(string $wsdl): string {
+            public function __invoke(string $wsdl): string
+            {
                 return 'new.wsdl';
             }
         };
@@ -89,62 +89,62 @@ class ExtSoapOptionsTest extends TestCase
         $options = ExtSoapOptions::defaults($this->wsdl, [])
             ->withWsdlProvider($wsdlProvider);
 
-        $this->assertSame('new.wsdl', $options->getWsdl());
+        static::assertSame('new.wsdl', $options->getWsdl());
     }
 
-    /** @test */
-    function it_is_possible_to_disable_wsdl_cache()
+    
+    public function test_it_is_possible_to_disable_wsdl_cache()
     {
         $options = $this->resolver->resolve(
             ExtSoapOptions::defaults($this->wsdl)->disableWsdlCache()->getOptions()
         );
 
-        $this->assertSame(WSDL_CACHE_NONE, $options['cache_wsdl']);
+        static::assertSame(WSDL_CACHE_NONE, $options['cache_wsdl']);
     }
 
-    /** @test */
-    function it_contains_a_default_type_map()
+    
+    public function test_it_contains_a_default_type_map()
     {
         $options = ExtSoapOptions::defaults($this->wsdl);
 
         $typeMap = $options->getTypeMap();
-        $this->assertInstanceOf(TypeConverter\TypeConverterCollection::class, $typeMap);
-        $this->assertCount(4, $typeMap->getIterator());
+        static::assertInstanceOf(TypeConverter\TypeConverterCollection::class, $typeMap);
+        static::assertCount(4, $typeMap->getIterator());
 
         $resolved = $this->resolver->resolve($options->getOptions());
-        $this->assertIsArray($resolved['typemap']);
-        $this->assertCount(4, $resolved['typemap']);
-        $this->assertSame('dateTime', $resolved['typemap'][0]['type_name']);
-        $this->assertSame('date', $resolved['typemap'][1]['type_name']);
-        $this->assertSame('decimal', $resolved['typemap'][2]['type_name']);
-        $this->assertSame('double', $resolved['typemap'][3]['type_name']);
+        static::assertIsArray($resolved['typemap']);
+        static::assertCount(4, $resolved['typemap']);
+        static::assertSame('dateTime', $resolved['typemap'][0]['type_name']);
+        static::assertSame('date', $resolved['typemap'][1]['type_name']);
+        static::assertSame('decimal', $resolved['typemap'][2]['type_name']);
+        static::assertSame('double', $resolved['typemap'][3]['type_name']);
     }
 
-    /** @test */
-    function it_is_possible_to_replace_the_type_map()
+    
+    public function test_it_is_possible_to_replace_the_type_map()
     {
         $options = ExtSoapOptions::defaults($this->wsdl)
             ->withTypeMap($typeMap = new TypeConverter\TypeConverterCollection());
 
-        $this->assertSame($typeMap, $options->getTypeMap());
+        static::assertSame($typeMap, $options->getTypeMap());
 
         $resolved = $this->resolver->resolve($options->getOptions());
-        $this->assertIsArray($resolved['typemap']);
-        $this->assertCount(0, $resolved['typemap']);
+        static::assertIsArray($resolved['typemap']);
+        static::assertCount(0, $resolved['typemap']);
     }
 
-    /** @test */
-    function it_is_possible_to_use_regular_type_map()
+    
+    public function test_it_is_possible_to_use_regular_type_map()
     {
         $options = ExtSoapOptions::defaults($this->wsdl, [
             'typemap' => [
                 [
                     'type_name' => $typeName = 'hello',
                     'type_ns' => $typeNs = 'http://my-ns/xsd',
-                    'from_xml' => function ($input) {
+                    'from_xml' => static function ($input) {
                         return $input;
                     },
-                    'to_xml' => function ($input) {
+                    'to_xml' => static function ($input) {
                         return '<xml>'.$input.'</xml>';
                     },
                 ]
@@ -152,47 +152,47 @@ class ExtSoapOptionsTest extends TestCase
         ]);
 
         $resolved = $this->resolver->resolve($options->getOptions());
-        $this->assertIsArray($resolved['typemap']);
-        $this->assertCount(1, $resolved['typemap']);
-        $this->assertSame($typeName, $resolved['typemap'][0]['type_name']);
-        $this->assertSame($typeNs, $resolved['typemap'][0]['type_ns']);
+        static::assertIsArray($resolved['typemap']);
+        static::assertCount(1, $resolved['typemap']);
+        static::assertSame($typeName, $resolved['typemap'][0]['type_name']);
+        static::assertSame($typeNs, $resolved['typemap'][0]['type_ns']);
 
         $this->expectException(UnexpectedConfigurationException::class);
         $options->getTypeMap();
     }
 
-    /** @test */
-    function it_can_dynamically_add_a_default_clasmap()
+    
+    public function test_it_can_dynamically_add_a_default_clasmap()
     {
         $options = ExtSoapOptions::defaults($this->wsdl);
 
         $classMap = $options->getClassMap();
-        $this->assertInstanceOf(ClassMapCollection::class, $classMap);
-        $this->assertCount(0, $classMap->getIterator());
+        static::assertInstanceOf(ClassMapCollection::class, $classMap);
+        static::assertCount(0, $classMap->getIterator());
 
         $resolved = $this->resolver->resolve($options->getOptions());
-        $this->assertIsArray($resolved['classmap']);
-        $this->assertCount(0, $resolved['classmap']);
+        static::assertIsArray($resolved['classmap']);
+        static::assertCount(0, $resolved['classmap']);
     }
 
-    /** @test */
-    function it_is_possible_to_replace_the_class_map()
+    
+    public function test_it_is_possible_to_replace_the_class_map()
     {
         $options = ExtSoapOptions::defaults($this->wsdl)
              ->withClassMap($classMap = new ClassMapCollection(
                  new ClassMap('wsdlType', 'PhpClass')
              ));
 
-        $this->assertSame($classMap, $options->getClassMap());
+        static::assertSame($classMap, $options->getClassMap());
 
         $resolved = $this->resolver->resolve($options->getOptions());
-        $this->assertIsArray($resolved['classmap']);
-        $this->assertCount(1, $resolved['classmap']);
-        $this->assertSame('PhpClass', $resolved['classmap']['wsdlType']);
+        static::assertIsArray($resolved['classmap']);
+        static::assertCount(1, $resolved['classmap']);
+        static::assertSame('PhpClass', $resolved['classmap']['wsdlType']);
     }
 
-    /** @test */
-    function it_is_possible_to_use_regular_class_map()
+    
+    public function test_it_is_possible_to_use_regular_class_map()
     {
         $options = ExtSoapOptions::defaults($this->wsdl, [
             'classmap' => [
@@ -201,16 +201,16 @@ class ExtSoapOptionsTest extends TestCase
         ]);
 
         $resolved = $this->resolver->resolve($options->getOptions());
-        $this->assertIsArray($resolved['classmap']);
-        $this->assertCount(1, $resolved['classmap']);
-        $this->assertSame('PhpClass', $resolved['classmap']['wsdlType']);
+        static::assertIsArray($resolved['classmap']);
+        static::assertCount(1, $resolved['classmap']);
+        static::assertSame('PhpClass', $resolved['classmap']['wsdlType']);
 
         $this->expectException(UnexpectedConfigurationException::class);
         $options->getClassMap();
     }
 
-    /** @test */
-    function it_can_accept_all_knwon_options()
+    
+    public function test_it_can_accept_all_knwon_options()
     {
         $options = $this->resolver->resolve(
             (new ExtSoapOptions(
@@ -247,7 +247,7 @@ class ExtSoapOptionsTest extends TestCase
         );
 
         foreach ($options as $key => $option) {
-            $this->assertSame($expectedOptions[$key], $option);
+            static::assertSame($expectedOptions[$key], $option);
         }
     }
 }

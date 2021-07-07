@@ -10,7 +10,7 @@ use Soap\ExtSoapEngine\AbusedClient;
 use Soap\ExtSoapEngine\ExtSoapDriver;
 use Soap\ExtSoapEngine\ExtSoapOptions;
 
-class ExtSoapMetadataProviderTest extends AbstractMetadataProviderTest
+final class ExtSoapMetadataProviderTest extends AbstractMetadataProviderTest
 {
     private MetadataProvider $metadataProvider;
     protected AbusedClient $client;

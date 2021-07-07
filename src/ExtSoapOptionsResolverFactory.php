@@ -65,7 +65,7 @@ final class ExtSoapOptionsResolverFactory
         // Compression
         $resolver->setDefined(['compression']);
         $resolver->setAllowedTypes('compression', ['int']);
-        $resolver->setAllowedValues('compression', function (int $value): bool {
+        $resolver->setAllowedValues('compression', static function (int $value): bool {
             // Levels 0-9 Specify GZIP compression
             // @see: https://bugs.php.net/bug.php?id=36283
             return $value >= 0
@@ -74,7 +74,7 @@ final class ExtSoapOptionsResolverFactory
                        | SOAP_COMPRESSION_DEFLATE
                        | SOAP_COMPRESSION_GZIP
                        | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
-                );
+                   );
         });
 
         // Encoding
@@ -88,14 +88,14 @@ final class ExtSoapOptionsResolverFactory
         // Classmaps
         $resolver->setDefault('classmap', new ClassMapCollection());
         $resolver->setAllowedTypes('classmap', [ClassMapCollection::class, 'array']);
-        $resolver->setNormalizer('classmap', function (Options $options, mixed $value): array {
+        $resolver->setNormalizer('classmap', static function (Options $options, mixed $value): array {
             // Classic array configuration:
             if (!$value instanceof ClassMapCollection) {
                 return $value;
             }
 
             return array_map(
-                function (ClassMap $classMap) {
+                static function (ClassMap $classMap) {
                     return $classMap->getPhpClassName();
                 },
                 iterator_to_array($value)
@@ -117,21 +117,21 @@ final class ExtSoapOptionsResolverFactory
 
         $resolver->setDefined(['typemap']);
         $resolver->setAllowedTypes('typemap', ['array', TypeConverterCollection::class]);
-        $resolver->setNormalizer('typemap', function (Options $options, mixed $value): array {
+        $resolver->setNormalizer('typemap', static function (Options $options, mixed $value): array {
             // Classic array configuration:
             if (!$value instanceof TypeConverterCollection) {
                 return $value;
             }
 
             return array_values(array_map(
-                function (TypeConverterInterface $converter) {
+                static function (TypeConverterInterface $converter) {
                     return [
                         'type_name' => $converter->getTypeName(),
                         'type_ns' => $converter->getTypeNamespace(),
-                        'from_xml' => function (string $input) use ($converter): mixed {
+                        'from_xml' => static function (string $input) use ($converter): mixed {
                             return $converter->convertXmlToPhp($input);
                         },
-                        'to_xml' => function (mixed $input) use ($converter): string {
+                        'to_xml' => static function (mixed $input) use ($converter): string {
                             return $converter->convertPhpToXml($input);
                         },
                     ];
@@ -161,7 +161,7 @@ final class ExtSoapOptionsResolverFactory
         // Features
         $resolver->setDefined(['features']);
         $resolver->setAllowedTypes('features', ['int']);
-        $resolver->setAllowedValues('features', function (int $value): bool {
+        $resolver->setAllowedValues('features', static function (int $value): bool {
             return $value >= 0
                && $value <= (SOAP_SINGLE_ELEMENT_ARRAYS | SOAP_USE_XSI_ARRAY_TYPE | SOAP_WAIT_ONE_WAY_CALLS);
         });

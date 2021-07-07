@@ -10,8 +10,9 @@ use Soap\Engine\Metadata\Model\Method;
 use Soap\Engine\Metadata\Model\Parameter;
 use Soap\Engine\Metadata\Model\XsdType;
 use Soap\ExtSoapEngine\Metadata\MethodsParser;
+use SoapClient;
 
-class MethodsParserTest extends TestCase
+final class MethodsParserTest extends TestCase
 {
     private MethodsParser $parser;
 
@@ -25,9 +26,9 @@ class MethodsParserTest extends TestCase
         );
     }
 
-    function test_it_can_parse_ext_soap_function_strings()
+    public function test_it_can_parse_ext_soap_function_strings()
     {
-        $client = $this->createConfiguredMock(\SoapClient::class, [
+        $client = $this->createConfiguredMock(SoapClient::class, [
             '__getFunctions' => $methods = [
                 'TestResponse Test0Param()',
                 'TestResponse Test1Param(Test1 $parameter1)',
@@ -40,8 +41,8 @@ class MethodsParserTest extends TestCase
 
         $result = $this->parser->parse($client);
 
-        self::assertCount(count($methods), $result);
-        self::assertEquals(
+        static::assertCount(count($methods), $result);
+        static::assertEquals(
             new Method(
                 'Test0Param',
                 new ParameterCollection(),
@@ -49,7 +50,7 @@ class MethodsParserTest extends TestCase
             ),
             $result->fetchByName('Test0Param')
         );
-        self::assertEquals(
+        static::assertEquals(
             new Method(
                 'Test1Param',
                 new ParameterCollection(
@@ -59,7 +60,7 @@ class MethodsParserTest extends TestCase
             ),
             $result->fetchByName('Test1Param')
         );
-        self::assertEquals(
+        static::assertEquals(
             new Method(
                 'Test2Param',
                 new ParameterCollection(
@@ -70,7 +71,7 @@ class MethodsParserTest extends TestCase
             ),
             $result->fetchByName('Test2Param')
         );
-        self::assertEquals(
+        static::assertEquals(
             new Method(
                 'TestReturnList',
                 new ParameterCollection(),
@@ -78,7 +79,7 @@ class MethodsParserTest extends TestCase
             ),
             $result->fetchByName('TestReturnList')
         );
-        self::assertEquals(
+        static::assertEquals(
             new Method(
                 'TestReturnListWithParams',
                 new ParameterCollection(
@@ -89,7 +90,7 @@ class MethodsParserTest extends TestCase
             ),
             $result->fetchByName('TestReturnListWithParams')
         );
-        self::assertEquals(
+        static::assertEquals(
             new Method(
                 'TestSimpleType',
                 new ParameterCollection(

@@ -1,6 +1,6 @@
 <?php
 
-declare( strict_types=1 );
+declare(strict_types=1);
 
 namespace SoapTest\ExtSoapEngine\Functional\ExtSoap;
 
@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Soap\ExtSoapEngine\ExtSoapDriver;
 use Soap\ExtSoapEngine\ExtSoapOptions;
 use Soap\ExtSoapEngine\Transport\ExtSoapServerTransport;
+use SoapServer;
 
 abstract class AbstractSoapTestCase extends TestCase
 {
@@ -22,7 +23,7 @@ abstract class AbstractSoapTestCase extends TestCase
     {
         $options = ExtSoapOptions::defaults($wsdl, $options)->disableWsdlCache();
 
-        $server = new \SoapServer($options->getWsdl(), $options->getOptions());
+        $server = new SoapServer($options->getWsdl(), $options->getOptions());
         $server->setObject($object);
 
         return new ExtSoapServerTransport($server);

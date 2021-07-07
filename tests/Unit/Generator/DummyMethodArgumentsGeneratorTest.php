@@ -6,16 +6,15 @@ namespace SoapTest\ExtSoapEngine\Unit\Generator;
 use PHPUnit\Framework\TestCase;
 use Soap\Engine\Metadata\Collection\MethodCollection;
 use Soap\Engine\Metadata\Collection\ParameterCollection;
-use Soap\Engine\Metadata\LazyInMemoryMetadata;
 use Soap\Engine\Metadata\Metadata;
 use Soap\Engine\Metadata\Model\Method;
 use Soap\Engine\Metadata\Model\Parameter;
 use Soap\Engine\Metadata\Model\XsdType;
 use Soap\ExtSoapEngine\Generator\DummyMethodArgumentsGenerator;
 
-class DummyMethodArgumentsGeneratorTest extends TestCase
+final class DummyMethodArgumentsGeneratorTest extends TestCase
 {
-    function test_it_can_parse_dummy_arguments()
+    public function test_it_can_parse_dummy_arguments()
     {
         $meta = $this->createConfiguredMock(Metadata::class, [
             'getMethods' => new MethodCollection(
@@ -32,6 +31,6 @@ class DummyMethodArgumentsGeneratorTest extends TestCase
         $generator = new DummyMethodArgumentsGenerator($meta);
 
         $actual = $generator->generateForSoapCall('method');
-        self::assertSame([null, null], $actual);
+        static::assertSame([null, null], $actual);
     }
 }

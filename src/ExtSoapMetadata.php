@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine;
 
+use Soap\Engine\Metadata\Collection\MethodCollection;
+use Soap\Engine\Metadata\Collection\TypeCollection;
+use Soap\Engine\Metadata\Collection\XsdTypeCollection;
 use Soap\Engine\Metadata\Metadata;
 use Soap\ExtSoapEngine\Metadata\MethodsParser;
 use Soap\ExtSoapEngine\Metadata\TypesParser;
 use Soap\ExtSoapEngine\Metadata\XsdTypesParser;
-use Soap\Engine\Metadata\Collection\MethodCollection;
-use Soap\Engine\Metadata\Collection\TypeCollection;
-use Soap\Engine\Metadata\Collection\XsdTypeCollection;
 
 final class ExtSoapMetadata implements Metadata
 {

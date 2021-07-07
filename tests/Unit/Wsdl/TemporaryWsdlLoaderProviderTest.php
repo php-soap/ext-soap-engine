@@ -7,10 +7,10 @@ use PHPUnit\Framework\TestCase;
 use Soap\ExtSoapEngine\Wsdl\TemporaryWsdlLoaderProvider;
 use Soap\Wsdl\Loader\WsdlLoader;
 
-class TemporaryWsdlLoaderProviderTest extends TestCase
+final class TemporaryWsdlLoaderProviderTest extends TestCase
 {
-    /** @test */
-    public function it_can_provide_a_wsdl(): void
+    
+    public function test_it_can_provide_a_wsdl(): void
     {
         $loader = $this->createConfiguredMock(WsdlLoader::class, [
             '__invoke' => $content = '<definitions />'
@@ -20,10 +20,9 @@ class TemporaryWsdlLoaderProviderTest extends TestCase
         $file = $provide('some.wsdl');
 
         try {
-
-            self::assertStringStartsWith(sys_get_temp_dir(), $file);
-            self::assertFileExists($file);
-            self::assertStringEqualsFile($file, $content);
+            static::assertStringStartsWith(sys_get_temp_dir(), $file);
+            static::assertFileExists($file);
+            static::assertStringEqualsFile($file, $content);
         } finally {
             @unlink($file);
         }

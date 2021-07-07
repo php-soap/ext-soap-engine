@@ -12,7 +12,7 @@ use Soap\ExtSoapEngine\ExtSoapDriver;
 use Soap\ExtSoapEngine\ExtSoapOptions;
 use Soap\ExtSoapEngine\Transport\ExtSoapClientTransport;
 
-class ExtSoapClientEngineTest extends AbstractEngineTest
+final class ExtSoapClientEngineTest extends AbstractEngineTest
 {
     private Engine $engine;
 

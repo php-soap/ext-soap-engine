@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\Configuration\TypeConverter;
 
+use ArrayIterator;
+use InvalidArgumentException;
 use IteratorAggregate;
-use Traversable;
 
 final class TypeConverterCollection implements IteratorAggregate
 {
@@ -24,11 +25,7 @@ final class TypeConverterCollection implements IteratorAggregate
         }
     }
 
-    /**
-     * @param TypeConverterInterface $converter
-     *
-     * @return string
-     */
+    
     private function serialize(TypeConverterInterface $converter): string
     {
         return $converter->getTypeNamespace() . ':' . $converter->getTypeName();
@@ -44,7 +41,7 @@ final class TypeConverterCollection implements IteratorAggregate
     public function add(TypeConverterInterface $converter): self
     {
         if ($this->has($converter)) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Converter for this type already exists'
             );
         }
@@ -71,9 +68,7 @@ final class TypeConverterCollection implements IteratorAggregate
      * Returns true if the collection contains a type converter for a certain
      * namespace and name
      *
-     * @param TypeConverterInterface $converter
      *
-     * @return bool
      */
     public function has(TypeConverterInterface $converter): bool
     {
@@ -86,10 +81,10 @@ final class TypeConverterCollection implements IteratorAggregate
     }
 
     /**
-     * @return \ArrayIterator|TypeConverterInterface[]
+     * @return ArrayIterator|TypeConverterInterface[]
      */
-    public function getIterator(): \ArrayIterator
+    public function getIterator(): ArrayIterator
     {
-        return new \ArrayIterator($this->converters);
+        return new ArrayIterator($this->converters);
     }
 }

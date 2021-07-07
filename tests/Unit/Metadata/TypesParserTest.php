@@ -10,7 +10,7 @@ use Soap\Engine\Metadata\Model\XsdType;
 use Soap\ExtSoapEngine\Metadata\TypesParser;
 use SoapClient;
 
-class TypesParserTest extends TestCase
+final class TypesParserTest extends TestCase
 {
     private TypesParser $parser;
 
@@ -23,7 +23,7 @@ class TypesParserTest extends TestCase
         );
     }
 
-    function test_it_can_parse_ext_soap_types_strings_with_single_argument()
+    public function test_it_can_parse_ext_soap_types_strings_with_single_argument()
     {
         $client = $this->createConfiguredMock(SoapClient::class, [
             '__getTypes' => [
@@ -43,27 +43,27 @@ class TypesParserTest extends TestCase
 
         $types = $this->parser->parse($client);
 
-        self::assertCount(1, $types);
+        static::assertCount(1, $types);
 
         $type = $types->fetchFirstByName('ProductLine');
-        self::assertSame('ProductLine', $type->getName());
+        static::assertSame('ProductLine', $type->getName());
 
         $properties = [...$type->getProperties()];
-        self::assertCount(4, $properties);
+        static::assertCount(4, $properties);
 
-        self::assertEquals(
+        static::assertEquals(
             new Property('Mode', XsdType::create('string')),
             $properties[0]
         );
-        self::assertEquals(
+        static::assertEquals(
             new Property('RelevanceRank', XsdType::create('string')),
             $properties[1]
         );
-        self::assertEquals(
+        static::assertEquals(
             new Property('ProductInfo', XsdType::create('ProductInfo')),
             $properties[2]
         );
-        self::assertEquals(
+        static::assertEquals(
             new Property('xsdType', XsdType::create('simpleType')->withBaseType('string')),
             $properties[3]
         );

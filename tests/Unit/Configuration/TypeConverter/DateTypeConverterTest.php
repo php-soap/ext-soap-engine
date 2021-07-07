@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace SoapTest\ExtSoapEngine\Unit\Configuration\TypeConverter;
 
+use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
 use Soap\ExtSoapEngine\Configuration\TypeConverter\DateTypeConverter;
 
-class DateTypeConverterTest extends TestCase
+final class DateTypeConverterTest extends TestCase
 {
     protected DateTypeConverter $converter;
 
@@ -15,41 +16,41 @@ class DateTypeConverterTest extends TestCase
         $this->converter = new DateTypeConverter();
     }
 
-    public function testNamespaceIsSpecificValue()
+    public function test_namespace_is_specific_value()
     {
-        $this->assertSame('http://www.w3.org/2001/XMLSchema', $this->converter->getTypeNamespace());
+        static::assertSame('http://www.w3.org/2001/XMLSchema', $this->converter->getTypeNamespace());
     }
 
-    public function testNameIsSpecificValue()
+    public function test_name_is_specific_value()
     {
-        $this->assertSame('date', $this->converter->getTypeName());
+        static::assertSame('date', $this->converter->getTypeName());
     }
 
-    public function testConvertXmlToPhp()
+    public function test_convert_xml_to_php()
     {
         $xml = '<date>2019-01-25</date>';
 
         $php = $this->converter->convertXmlToPhp($xml);
 
-        self::assertInstanceOf(\DateTimeImmutable::class, $php);
-        self::assertSame('2019-01-25', $php->format('Y-m-d'));
+        static::assertInstanceOf(DateTimeImmutable::class, $php);
+        static::assertSame('2019-01-25', $php->format('Y-m-d'));
     }
 
-    public function testConvertXmlToPhpWhenNoTextContent()
+    public function test_convert_xml_to_php_when_no_text_content()
     {
         $xml = '<date/>';
 
         $php = $this->converter->convertXmlToPhp($xml);
 
-        $this->assertNull($php);
+        static::assertNull($php);
     }
 
-    public function testConvertPhpToXml()
+    public function test_convert_php_to_xml()
     {
         $xml = '<date>2019-01-25</date>';
 
-        $output = $this->converter->convertPhpToXml(new \DateTimeImmutable('2019-01-25'));
+        $output = $this->converter->convertPhpToXml(new DateTimeImmutable('2019-01-25'));
 
-        $this->assertSame($xml, $output);
+        static::assertSame($xml, $output);
     }
 }

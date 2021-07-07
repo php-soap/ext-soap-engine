@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Soap\ExtSoapEngine\Generator;
 
 use Soap\Engine\Metadata\Metadata;
+use function count;
 
 /**
  * For decoding the soap response, we require that the __soapCall takes the same amount of arguments.
  * If a, this causes segfaults when using a type map.
  */
-class DummyMethodArgumentsGenerator
+final class DummyMethodArgumentsGenerator
 {
     /**
      * @var Metadata
@@ -27,6 +28,6 @@ class DummyMethodArgumentsGenerator
         $methods = $this->metadata->getMethods();
         $method = $methods->fetchByName($method);
 
-        return array_fill(0, \count($method->getParameters()), null);
+        return array_fill(0, count($method->getParameters()), null);
     }
 }

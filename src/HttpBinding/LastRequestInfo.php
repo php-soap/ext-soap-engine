@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\HttpBinding;
 
-class LastRequestInfo
+final class LastRequestInfo
 {
     private string $lastRequestHeaders;
     private string $lastRequest;

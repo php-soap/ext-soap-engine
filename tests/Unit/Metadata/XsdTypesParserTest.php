@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Soap\ExtSoapEngine\Metadata\XsdTypesParser;
 use SoapClient;
 
-class XsdTypesParserTest extends TestCase
+final class XsdTypesParserTest extends TestCase
 {
     private XsdTypesParser $parser;
 
@@ -16,7 +16,7 @@ class XsdTypesParserTest extends TestCase
         $this->parser = XsdTypesParser::default();
     }
 
-    function test_it_contains_a_default_set_of_visitors()
+    public function test_it_contains_a_default_set_of_visitors()
     {
         $client = $this->createConfiguredMock(SoapClient::class, [
             '__getTypes' => [
@@ -31,15 +31,15 @@ class XsdTypesParserTest extends TestCase
 
         $result = [...$this->parser->parse($client)];
 
-        self::assertCount(5, $result);
-        self::assertSame('unionType', $result[0]->getName());
-        self::assertSame('unionType', $result[1]->getName());
-        self::assertSame('listType', $result[2]->getName());
-        self::assertSame('listType', $result[3]->getName());
-        self::assertSame('simpleType', $result[4]->getName());
+        static::assertCount(5, $result);
+        static::assertSame('unionType', $result[0]->getName());
+        static::assertSame('unionType', $result[1]->getName());
+        static::assertSame('listType', $result[2]->getName());
+        static::assertSame('listType', $result[3]->getName());
+        static::assertSame('simpleType', $result[4]->getName());
     }
 
-    function test_it_can_handle_double_typenames_in_separate_namespaces()
+    public function test_it_can_handle_double_typenames_in_separate_namespaces()
     {
         $client = $this->createConfiguredMock(SoapClient::class, [
             '__getTypes' => [
@@ -51,12 +51,12 @@ class XsdTypesParserTest extends TestCase
         $result = $this->parser->parse($client);
         $records = [...$result];
 
-        self::assertCount(2, $result);
-        self::assertSame('simpleType', $records[0]->getName());
-        self::assertSame('string', $records[0]->getBaseType());
-        self::assertSame('simpleType', $records[1]->getName());
-        self::assertSame('integer', $records[1]->getBaseType());
+        static::assertCount(2, $result);
+        static::assertSame('simpleType', $records[0]->getName());
+        static::assertSame('string', $records[0]->getBaseType());
+        static::assertSame('simpleType', $records[1]->getName());
+        static::assertSame('integer', $records[1]->getBaseType());
 
-        self::assertSame('string', $result->fetchByNameWithFallback('simpleType')->getBaseType());
+        static::assertSame('string', $result->fetchByNameWithFallback('simpleType')->getBaseType());
     }
 }

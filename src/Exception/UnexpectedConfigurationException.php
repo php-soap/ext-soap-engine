@@ -6,7 +6,7 @@ namespace Soap\ExtSoapEngine\Exception;
 
 use Soap\Engine\Exception\RuntimeException;
 
-class UnexpectedConfigurationException extends RuntimeException
+final class UnexpectedConfigurationException extends RuntimeException
 {
     public static function expectedTypeButGot(string $configurationKey, string $expectedType, mixed $value): self
     {

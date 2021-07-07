@@ -8,7 +8,7 @@ use Soap\Engine\Exception\RuntimeException;
 
 class UnexpectedConfigurationException extends RuntimeException
 {
-    public static function expectedTypeButGot(string $configurationKey, string $expectedType, $value): self
+    public static function expectedTypeButGot(string $configurationKey, string $expectedType, mixed $value): self
     {
         return new self(
             sprintf(

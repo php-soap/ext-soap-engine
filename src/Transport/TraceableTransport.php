@@ -23,6 +23,9 @@ final class TraceableTransport implements Transport
         $this->lastRequestInfo = LastRequestInfo::empty();
     }
 
+    /**
+     * @psalm-suppress RedundantCastGivenDocblockType - Whatever psalm says ... Request|Response headers can be null :-(
+     */
     public function request(SoapRequest $request): SoapResponse
     {
         $response = $this->transport->request($request);

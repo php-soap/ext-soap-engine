@@ -24,10 +24,8 @@ final class MethodsParser
     public function parse(SoapClient $client): MethodCollection
     {
         return new MethodCollection(...array_map(
-            function (string $methodString) {
-                return $this->parseMethodFromString($methodString);
-            },
-            $client->__getFunctions()
+            fn (string $methodString) => $this->parseMethodFromString($methodString),
+            array_values($client->__getFunctions())
         ));
     }
 
@@ -72,13 +70,13 @@ final class MethodsParser
     {
         preg_match('/^\w+ (?P<name>\w+)/', $methodString, $matches);
 
-        return (string) $matches['name'];
+        return $matches['name'];
     }
 
     private function parseReturnType(string $methodString): XsdType
     {
         preg_match('/^(?P<returnType>\w+)/', $methodString, $matches);
 
-        return $this->xsdTypes->fetchByNameWithFallback((string) $matches['returnType']);
+        return $this->xsdTypes->fetchByNameWithFallback($matches['returnType']);
     }
 }

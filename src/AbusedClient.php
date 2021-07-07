@@ -31,7 +31,7 @@ final class AbusedClient extends \SoapClient
     protected $__last_response = '';
     // @codingStandardsIgnoreEnd
 
-    public function __construct($wsdl, array $options = [])
+    public function __construct(?string $wsdl, array $options = [])
     {
         $options = ExtSoapOptionsResolverFactory::createForWsdl($wsdl)->resolve($options);
         parent::__construct($wsdl, $options);
@@ -42,6 +42,9 @@ final class AbusedClient extends \SoapClient
         return new self($options->getWsdl(), $options->getOptions());
     }
 
+    /**
+     * @psalm-suppress RedundantCastGivenDocblockType - Whatever psalm says ... $oneWay can be bool :-(
+     */
     public function __doRequest($request, $location, $action, $version, $oneWay = 0)
     {
         $this->storedRequest = new SoapRequest($request, $location, $action, $version, (int) $oneWay);
@@ -56,9 +59,8 @@ final class AbusedClient extends \SoapClient
         int $version,
         int $oneWay = 0
     ): string {
-        $typedOneWay = PHP_VERSION_ID >= 80000 ? (bool) $oneWay : $oneWay;
         $this->__last_request = $request;
-        $this->__last_response = (string) parent::__doRequest($request, $location, $action, $version, $typedOneWay);
+        $this->__last_response = parent::__doRequest($request, $location, $action, $version, $oneWay);
 
         return $this->__last_response;
     }
@@ -72,12 +74,12 @@ final class AbusedClient extends \SoapClient
         return $this->storedRequest;
     }
 
-    public function registerResponse(SoapResponse $response)
+    public function registerResponse(SoapResponse $response): void
     {
         $this->storedResponse = $response;
     }
 
-    public function cleanUpTemporaryState()
+    public function cleanUpTemporaryState(): void
     {
         $this->storedRequest = null;
         $this->storedResponse = null;

@@ -105,7 +105,13 @@ final class ExtSoapOptions
         return $this;
     }
 
-    private function fetchOptionOfTypeWithDefault(string $key, string $type, $default)
+    /**
+     * @template T
+     * @param class-string<T> $type
+     * @param T $default
+     * @return T
+     */
+    private function fetchOptionOfTypeWithDefault(string $key, string $type, mixed $default): mixed
     {
         $this->options[$key] = $this->options[$key] ?? $default;
 

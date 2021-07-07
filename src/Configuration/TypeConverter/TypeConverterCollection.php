@@ -3,7 +3,6 @@
 namespace Soap\ExtSoapEngine\Configuration\TypeConverter;
 
 use IteratorAggregate;
-use Phpro\SoapClient\Exception\InvalidArgumentException;
 use Traversable;
 
 final class TypeConverterCollection implements IteratorAggregate
@@ -41,12 +40,11 @@ final class TypeConverterCollection implements IteratorAggregate
      * @param TypeConverterInterface $converter Type converter
      *
      * @return TypeConverterCollection
-     * @throws InvalidArgumentException
      */
     public function add(TypeConverterInterface $converter): self
     {
         if ($this->has($converter)) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 'Converter for this type already exists'
             );
         }

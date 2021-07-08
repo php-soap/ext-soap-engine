@@ -8,7 +8,6 @@ use Soap\ExtSoapEngine\Wsdl\InMemoryWsdlProvider;
 
 final class InMemoryWsdlProviderTest extends TestCase
 {
-    
     public function test_it_can_provide_a_wsdl(): void
     {
         $provide = new InMemoryWsdlProvider();

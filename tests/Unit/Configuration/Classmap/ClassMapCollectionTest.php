@@ -9,7 +9,6 @@ use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMapCollection;
 
 final class ClassMapCollectionTest extends TestCase
 {
-    
     public function test_it_tests_class_maps(): void
     {
         $classMap = new ClassMapCollection(

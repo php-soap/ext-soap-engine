@@ -8,7 +8,6 @@ use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMap;
 
 final class ClassMapTest extends TestCase
 {
-    
     public function test_it_tests_class_maps(): void
     {
         $classMap = new ClassMap('wsdlType', 'phpType');

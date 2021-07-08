@@ -9,7 +9,6 @@ use Soap\Wsdl\Loader\WsdlLoader;
 
 final class TemporaryWsdlLoaderProviderTest extends TestCase
 {
-    
     public function test_it_can_provide_a_wsdl(): void
     {
         $loader = $this->createConfiguredMock(WsdlLoader::class, [

@@ -9,7 +9,6 @@ use Soap\ExtSoapEngine\Configuration\TypeConverter\TypeConverterCollection;
 
 final class TypeConverterCollectionTest extends TestCase
 {
-    
     public function test_it_tests_type_collections(): void
     {
         $collection = new TypeConverterCollection(

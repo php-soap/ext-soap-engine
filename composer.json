@@ -24,13 +24,13 @@
         "ext-soap": "*",
         "ext-dom": "*",
         "azjezz/psl": "^1.7",
-        "php-soap/engine": "dev-main",
-        "php-soap/wsdl": "dev-main",
+        "php-soap/engine": "^0.1.0",
+        "php-soap/wsdl": "^0.1.0",
         "symfony/options-resolver": "^5.3"
     },
     "require-dev": {
-        "php-soap/engine-integration-tests": "dev-main",
-        "php-soap/xml": "dev-main",
+        "php-soap/engine-integration-tests": "^0.1.0",
+        "php-soap/xml": "^0.1.0",
         "phpunit/phpunit": "^9.5"
     }
 }

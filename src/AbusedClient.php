@@ -43,12 +43,14 @@ final class AbusedClient extends SoapClient
         return new self($options->getWsdl(), $options->getOptions());
     }
 
-    /**
-     * @psalm-suppress RedundantCastGivenDocblockType - Whatever psalm says ... $oneWay can be bool :-(
-     */
-    public function __doRequest($request, $location, $action, $version, $oneWay = 0)
-    {
-        $this->storedRequest = new SoapRequest($request, $location, $action, $version, (int) $oneWay);
+    public function __doRequest(
+        string $request,
+        string $location,
+        string $action,
+        int $version,
+        bool $one_way = false
+    ): string {
+        $this->storedRequest = new SoapRequest($request, $location, $action, $version, $one_way);
 
         return $this->storedResponse ? $this->storedResponse->getPayload() : '';
     }
@@ -58,7 +60,7 @@ final class AbusedClient extends SoapClient
         string $location,
         string $action,
         int $version,
-        int $oneWay = 0
+        bool $oneWay = false
     ): string {
         $this->__last_request = $request;
         $this->__last_response = parent::__doRequest($request, $location, $action, $version, $oneWay);

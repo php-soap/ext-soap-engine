@@ -9,7 +9,7 @@ use IteratorAggregate;
 final class TypeConverterCollection implements IteratorAggregate
 {
     /**
-     * @var array|TypeConverterInterface[]
+     * @var array<TypeConverterInterface>
      */
     private array $converters = [];
 
@@ -81,7 +81,7 @@ final class TypeConverterCollection implements IteratorAggregate
     }
 
     /**
-     * @return ArrayIterator|TypeConverterInterface[]
+     * @return ArrayIterator<array-key, TypeConverterInterface>
      */
     public function getIterator(): ArrayIterator
     {

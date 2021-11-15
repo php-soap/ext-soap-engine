@@ -7,5 +7,5 @@ class SoapClient
      * @see https://github.com/vimeo/psalm/issues/6901
      * This can be removed once it is fixed in psalm
      */
-    public function __doRequest (string $request, string $location, string $action, int $version, bool $one_way = false) {}
+    public function __doRequest (string $request, string $location, string $action, int $version, bool $one_way = false): ?string {}
 }

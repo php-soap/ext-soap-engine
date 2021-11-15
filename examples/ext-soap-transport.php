@@ -12,9 +12,8 @@ require_once dirname(__DIR__).'/vendor/autoload.php';
 $engine = new SimpleEngine(
     ExtSoapDriver::createFromClient(
         $client = AbusedClient::createFromOptions(
-            ExtSoapOptions::defaults('http://www.dneonline.com/calculator.asmx?wsdl', [
-                'connection_timeout' => 0,
-            ])
+            ExtSoapOptions::defaults('http://www.dneonline.com/calculator.asmx?wsdl', [])
+                ->disableWsdlCache()
         )
     ),
     $transport = new TraceableTransport(

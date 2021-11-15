@@ -63,7 +63,7 @@ final class AbusedClient extends SoapClient
         bool $oneWay = false
     ): string {
         $this->__last_request = $request;
-        $this->__last_response = parent::__doRequest($request, $location, $action, $version, $oneWay);
+        $this->__last_response = (string) parent::__doRequest($request, $location, $action, $version, $oneWay);
 
         return $this->__last_response;
     }

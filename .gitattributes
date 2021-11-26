@@ -7,4 +7,4 @@ tools/*         binary
 /phpunit.xml    export-ignore
 /.phive/phars.xml      export-ignore
 /.phive/phars.xml      export-ignore
-/.php_cs.dist    export-ignore
+/.php-cs-fixer.cache    export-ignore

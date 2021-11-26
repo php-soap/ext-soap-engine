@@ -23,10 +23,10 @@
         "php": "^8.0",
         "ext-soap": "*",
         "ext-dom": "*",
-        "azjezz/psl": "^1.7",
+        "azjezz/psl": "^1.9",
         "php-soap/engine": "^1.1",
         "php-soap/wsdl": "^1.0",
-        "symfony/options-resolver": "^5.3"
+        "symfony/options-resolver": "^5.3 || ^6.0"
     },
     "require-dev": {
         "php-soap/engine-integration-tests": "^1.1",

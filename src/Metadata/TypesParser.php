@@ -27,7 +27,7 @@ final class TypesParser
     public function parse(SoapClient $client): TypeCollection
     {
         $collected = [];
-        $soapTypes = $client->__getTypes();
+        $soapTypes = (array) $client->__getTypes();
         foreach ($soapTypes as $soapType) {
             $properties = [];
             $lines = explode("\n", $soapType);

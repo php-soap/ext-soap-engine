@@ -8,4 +8,16 @@ class SoapClient
      * This can be removed once it is fixed in psalm
      */
     public function __doRequest (string $request, string $location, string $action, int $version, bool $one_way = false): ?string {}
+
+    /**
+     * @see https://github.com/vimeo/psalm/pull/7140
+     * This can be removed once it is fixed in psalm
+     */
+    public function __getTypes (): ?array {}
+
+    /**
+     * @see https://github.com/vimeo/psalm/pull/7140
+     * This can be removed once it is fixed in psalm
+     */
+    public function __getFunctions (): ?array {}
 }

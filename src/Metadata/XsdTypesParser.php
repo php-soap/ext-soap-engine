@@ -36,7 +36,7 @@ final class XsdTypesParser
     public function parse(SoapClient $client): XsdTypeCollection
     {
         $collected = [];
-        $soapTypes = $client->__getTypes();
+        $soapTypes = (array) $client->__getTypes();
         foreach ($soapTypes as $soapType) {
             if ($type = $this->detectXsdType($soapType)) {
                 $collected[] = $type;

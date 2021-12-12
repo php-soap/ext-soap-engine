@@ -25,7 +25,7 @@ final class MethodsParser
     {
         return new MethodCollection(...array_map(
             fn (string $methodString) => $this->parseMethodFromString($methodString),
-            array_values($client->__getFunctions())
+            array_values((array)$client->__getFunctions())
         ));
     }
 

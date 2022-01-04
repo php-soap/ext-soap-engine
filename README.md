@@ -95,7 +95,7 @@ This package provides following engine components:
 * **TraceableTransport:** Can be used to decorate another transport and keeps track of the last request and response. It should be used as an alternative for fetching it on the SoapClient.
 
 In ext-soap, there are some well known issues regarding the HTTP layer.
-Therefore we recommend using the [PSR-18 based transport](https://github.com/php-soap/psr18-transport/) instead of the once above.
+Therefore we recommend using the [PSR-18 based transport](https://github.com/php-soap/psr18-transport/) instead of the ones above.
 Besides dealing with some issues, it also provides a set of middleware for dealing with some common issues you might not be able to solve with the regular SoapClient.
 
 

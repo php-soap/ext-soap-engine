@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phive xmlns="https://phar.io/phive">
-  <phar name="psalm" version="^4.13.1" installed="4.13.1" location="./tools/psalm.phar" copy="true"/>
+  <phar name="psalm" version="^4.17" installed="4.17.0" location="./tools/psalm.phar" copy="true"/>
   <phar name="php-cs-fixer" version="^3.3.2" installed="3.3.2" location="./tools/php-cs-fixer.phar" copy="true"/>
 </phive>

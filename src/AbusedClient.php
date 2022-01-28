@@ -6,6 +6,7 @@ namespace Soap\ExtSoapEngine;
 
 use Soap\Engine\HttpBinding\SoapRequest;
 use Soap\Engine\HttpBinding\SoapResponse;
+use Soap\ExtSoapEngine\ErrorHandling\ExtSoapErrorHandler;
 use Soap\ExtSoapEngine\Exception\RequestException;
 use SoapClient;
 
@@ -63,7 +64,11 @@ final class AbusedClient extends SoapClient
         bool $oneWay = false
     ): string {
         $this->__last_request = $request;
-        $this->__last_response = (string) parent::__doRequest($request, $location, $action, $version, $oneWay);
+        $this->__last_response = (string) ExtSoapErrorHandler::handleNullResponse(
+            ExtSoapErrorHandler::handleInternalErrors(
+                fn (): ?string => parent::__doRequest($request, $location, $action, $version, $oneWay)
+            )
+        );
 
         return $this->__last_response;
     }

@@ -11,4 +11,9 @@ final class RequestException extends RuntimeException
     {
         return new self('No request has been registered yet.');
     }
+
+    public static function internalSoapError(string $lastError): self
+    {
+        return new self('Internal ext-soap error: ' . $lastError);
+    }
 }

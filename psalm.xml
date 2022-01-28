@@ -2,7 +2,6 @@
 <psalm
     errorLevel="2"
     resolveFromConfigFile="true"
-    forbidEcho="true"
     strictBinaryOperands="true"
     phpVersion="8.0"
     allowStringToStandInForClass="true"
@@ -19,7 +18,4 @@
             <directory name="tests" />
         </ignoreFiles>
     </projectFiles>
-    <stubs>
-        <file name="stubs/SoapClient.phpstub" />
-    </stubs>
 </psalm>

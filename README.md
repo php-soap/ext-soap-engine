@@ -114,12 +114,13 @@ This way, you'll spend less time browsing the official PHP documentation.
 use Soap\ExtSoapEngine\ExtSoapOptions;
 use Soap\ExtSoapEngine\Wsdl\Naming\Md5Strategy;use Soap\ExtSoapEngine\Wsdl\TemporaryWsdlLoaderProvider;
 use Soap\Psr18Transport\Wsdl\Psr18Loader;
+use Soap\Wsdl\Loader\FlatteningLoader;
 
 $options = ExtSoapOptions::defaults($wsdl, ['location' => 'http://somedifferentserver.com'])
     ->disableWsdlCache()
     ->withClassMap(\MyClassMap::getCollection())
     ->withWsdlProvider(new TemporaryWsdlLoaderProvider(
-        new Psr18Loader($httpClient),
+        new FlatteningLoader(new Psr18Loader($httpClient)),
         new Md5Strategy(),
         'some/dir'
     ));
@@ -181,10 +182,11 @@ You can use any [WSDL loader](https://github.com/php-soap/wsdl#wsdl-loader)
 <?php
 use Soap\ExtSoapEngine\Wsdl\Naming\Md5Strategy;
 use Soap\ExtSoapEngine\Wsdl\PermanentWsdlLoaderProvider;
+use Soap\Wsdl\Loader\FlatteningLoader;
 use Soap\Wsdl\Loader\StreamWrapperLoader;
 
 $provider = new PermanentWsdlLoaderProvider(
-    new StreamWrapperLoader(),
+    new FlatteningLoader(new StreamWrapperLoader()),
     new Md5Strategy(),
     'target/location'
 );
@@ -205,10 +207,11 @@ You can use any [WSDL loader](https://github.com/php-soap/wsdl#wsdl-loader)
 <?php
 use Soap\ExtSoapEngine\Wsdl\Naming\Md5Strategy;
 use Soap\ExtSoapEngine\Wsdl\TemporaryWsdlLoaderProvider;
+use Soap\Wsdl\Loader\FlatteningLoader;
 use Soap\Wsdl\Loader\StreamWrapperLoader;
 
 $provider = new TemporaryWsdlLoaderProvider(
-    new StreamWrapperLoader(),
+    new FlatteningLoader(new StreamWrapperLoader()),
     new Md5Strategy(),
     'target/location'
 );

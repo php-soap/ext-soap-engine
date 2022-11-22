@@ -3,9 +3,11 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine\Wsdl;
 
+use Psl\File\WriteMode;
 use Soap\ExtSoapEngine\Wsdl\Naming\Md5Strategy;
 use Soap\ExtSoapEngine\Wsdl\Naming\NamingStrategy;
 use Soap\Wsdl\Loader\WsdlLoader;
+use function Psl\File\write;
 use function Psl\Filesystem\write_file;
 
 final class TemporaryWsdlLoaderProvider implements WsdlProvider
@@ -23,7 +25,13 @@ final class TemporaryWsdlLoaderProvider implements WsdlProvider
         $namingStrategy = $this->namingStrategy ?? new Md5Strategy();
         $file = $cacheDir . DIRECTORY_SEPARATOR . $namingStrategy($location);
 
-        write_file($file, ($this->loader)($location));
+        $content = ($this->loader)($location);
+
+        if (! function_exists('Psl\\Filesystem\\write_file')) {
+            write($file, $content, WriteMode::TRUNCATE);
+        } else {
+            write_file($file, $content);
+        }
 
         return $file;
     }

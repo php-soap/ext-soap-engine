@@ -36,7 +36,6 @@ final class TypeConverterCollection implements IteratorAggregate
      *
      * @param TypeConverterInterface $converter Type converter
      *
-     * @return TypeConverterCollection
      */
     public function add(TypeConverterInterface $converter): self
     {
@@ -54,7 +53,6 @@ final class TypeConverterCollection implements IteratorAggregate
      *
      * @param TypeConverterInterface $converter Type converter
      *
-     * @return TypeConverterCollection
      */
     public function set(TypeConverterInterface $converter): self
     {

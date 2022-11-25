@@ -21,6 +21,9 @@ final class DoubleTypeConverter implements TypeConverterInterface
         return 'double';
     }
 
+    /**
+     * @param non-empty-string $xml
+     */
     public function convertXmlToPhp(string $xml)
     {
         $doc = new DOMDocument();

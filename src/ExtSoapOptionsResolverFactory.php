@@ -10,6 +10,7 @@ use Soap\ExtSoapEngine\Configuration\TypeConverter\TypeConverterCollection;
 use Soap\ExtSoapEngine\Configuration\TypeConverter\TypeConverterInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Psl\Type\non_empty_string;
 
 final class ExtSoapOptionsResolverFactory
 {
@@ -128,12 +129,10 @@ final class ExtSoapOptionsResolverFactory
                     return [
                         'type_name' => $converter->getTypeName(),
                         'type_ns' => $converter->getTypeNamespace(),
-                        'from_xml' => static function (string $input) use ($converter): mixed {
-                            return $converter->convertXmlToPhp($input);
-                        },
-                        'to_xml' => static function (mixed $input) use ($converter): string {
-                            return $converter->convertPhpToXml($input);
-                        },
+                        'from_xml' => static fn (string $input): mixed => $converter->convertXmlToPhp(
+                            non_empty_string()->coerce($input)
+                        ),
+                        'to_xml' => static fn (mixed $input): string => $converter->convertPhpToXml($input),
                     ];
                 },
                 iterator_to_array($value)

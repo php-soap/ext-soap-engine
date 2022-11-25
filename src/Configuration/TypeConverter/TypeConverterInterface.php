@@ -26,7 +26,7 @@ interface TypeConverterInterface
     /**
      * Convert given XML string to PHP type.
      *
-     * @param string $xml XML string
+     * @param non-empty-string $xml XML string
      *
      * @return mixed
      */

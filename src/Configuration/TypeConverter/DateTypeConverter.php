@@ -23,6 +23,9 @@ final class DateTypeConverter implements TypeConverterInterface
         return 'date';
     }
 
+    /**
+     * @param non-empty-string $xml
+     */
     public function convertXmlToPhp(string $xml)
     {
         $doc = new DOMDocument();

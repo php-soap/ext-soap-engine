@@ -21,6 +21,9 @@ final class DecimalTypeConverter implements TypeConverterInterface
         return 'decimal';
     }
 
+    /**
+     * @param non-empty-string $xml
+     */
     public function convertXmlToPhp(string $xml)
     {
         $doc = new DOMDocument();

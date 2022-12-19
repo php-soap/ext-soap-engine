@@ -231,7 +231,7 @@ $wsdl = ($provider)('some.wsdl');
 #### Writing your own WSDL provider
 
 Didn't find the WSDL provider you needed?
-No worries! It is very easy to create your own WSDL provider. The only thing you'll need to do is implement the WsdlProviderInterface:
+No worries! It is very easy to create your own WSDL provider. The only thing you'll need to do is implement the `WsdlProvider` interface:
 
 ```php
 namespace Soap\ExtSoapEngine\Wsdl;

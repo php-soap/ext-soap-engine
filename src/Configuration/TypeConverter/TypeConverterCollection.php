@@ -6,6 +6,9 @@ use ArrayIterator;
 use InvalidArgumentException;
 use IteratorAggregate;
 
+/**
+ * @implements IteratorAggregate<array-key, TypeConverterInterface>
+ */
 final class TypeConverterCollection implements IteratorAggregate
 {
     /**
@@ -25,7 +28,7 @@ final class TypeConverterCollection implements IteratorAggregate
         }
     }
 
-    
+
     private function serialize(TypeConverterInterface $converter): string
     {
         return $converter->getTypeNamespace() . ':' . $converter->getTypeName();

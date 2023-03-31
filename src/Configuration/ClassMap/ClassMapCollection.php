@@ -5,6 +5,9 @@ namespace Soap\ExtSoapEngine\Configuration\ClassMap;
 use ArrayIterator;
 use IteratorAggregate;
 
+/**
+ * @implements IteratorAggregate<array-key, ClassMapInterface>
+ */
 final class ClassMapCollection implements IteratorAggregate
 {
     /**

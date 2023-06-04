@@ -24,7 +24,7 @@ Want more information about the future of this project? Check out this list of t
 # Installation
 
 ```shell
-composer install php-soap/ext-soap-engine
+composer require php-soap/ext-soap-engine
 ```
 
 ## Example usage:

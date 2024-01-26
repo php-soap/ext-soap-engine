@@ -33,14 +33,15 @@ final class MethodsParserTest extends TestCase
                 'TestResponse Test0Param()',
                 'TestResponse Test1Param(Test1 $parameter1)',
                 'TestResponse Test2Param(Test1 $parameter1, Test2 $parameter2)',
-                'list(Response1 $response1, Response2 $response2) TestReturnList()',
+                'list(Response1 $response1, Response-2 $response2, Response_3 $response3) TestReturnList()',
                 'list(Response1 $response1, Response2 $response2) TestReturnListWithParams(Test1 $parameter1, Test2 $parameter2)',
                 'simpleType TestSimpleType(simpleType $parameter1)',
+                'Test-Response Test-Method(Test-1 $parameter-1)',
+                'Test_Response Test_Method(Test_1 $parameter_1)',
             ]
         ]);
 
         $result = $this->parser->parse($client);
-
         static::assertCount(count($methods), $result);
         static::assertEquals(
             new Method(
@@ -99,6 +100,26 @@ final class MethodsParserTest extends TestCase
                 XsdType::create('simpleType')->withBaseType('string')
             ),
             $result->fetchByName('TestSimpleType')
+        );
+        static::assertEquals(
+            new Method(
+                'Test-Method',
+                new ParameterCollection(
+                    new Parameter('parameter-1', XsdType::create('Test-1'))
+                ),
+                XsdType::create('Test-Response')
+            ),
+            $result->fetchByName('Test-Method')
+        );
+        static::assertEquals(
+            new Method(
+                'Test_Method',
+                new ParameterCollection(
+                    new Parameter('parameter_1', XsdType::create('Test_1'))
+                ),
+                XsdType::create('Test_Response')
+            ),
+            $result->fetchByName('Test_Method')
         );
     }
 }

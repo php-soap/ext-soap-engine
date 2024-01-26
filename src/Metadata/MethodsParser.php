@@ -68,14 +68,14 @@ final class MethodsParser
 
     private function parseName(string $methodString): string
     {
-        preg_match('/^\w+ (?P<name>\w+)/', $methodString, $matches);
+        preg_match('/^[\w-]+ (?P<name>[\w-]+)/', $methodString, $matches);
 
         return $matches['name'];
     }
 
     private function parseReturnType(string $methodString): XsdType
     {
-        preg_match('/^(?P<returnType>\w+)/', $methodString, $matches);
+        preg_match('/^(?P<returnType>[\w-]+)/', $methodString, $matches);
 
         return $this->xsdTypes->fetchByNameWithFallback($matches['returnType']);
     }

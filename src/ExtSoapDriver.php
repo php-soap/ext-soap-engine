@@ -42,7 +42,7 @@ final class ExtSoapDriver implements Driver
         );
     }
 
-    public static function createFromClient(AbusedClient $client, Metadata $metadata = null): self
+    public static function createFromClient(AbusedClient $client, ?Metadata $metadata = null): self
     {
         $metadata = $metadata ?? new LazyInMemoryMetadata(new ExtSoapMetadata($client));
 

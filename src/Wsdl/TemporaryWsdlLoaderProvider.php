@@ -24,7 +24,7 @@ final class TemporaryWsdlLoaderProvider implements WsdlProvider
         $namingStrategy = $this->namingStrategy ?? new Md5Strategy();
         $file = $cacheDir . DIRECTORY_SEPARATOR . $namingStrategy($location);
 
-        write($file, ($this->loader)($location), WriteMode::TRUNCATE);
+        write($file, ($this->loader)($location), WriteMode::Truncate);
 
         return $file;
     }

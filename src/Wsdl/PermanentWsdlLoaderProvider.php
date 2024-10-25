@@ -31,7 +31,7 @@ final class PermanentWsdlLoaderProvider implements WsdlProvider
             return $file;
         }
 
-        write($file, ($this->loader)($location), WriteMode::TRUNCATE);
+        write($file, ($this->loader)($location), WriteMode::Truncate);
 
         return $file;
     }

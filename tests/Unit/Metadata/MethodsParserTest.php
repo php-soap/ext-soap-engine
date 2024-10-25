@@ -76,7 +76,7 @@ final class MethodsParserTest extends TestCase
             new Method(
                 'TestReturnList',
                 new ParameterCollection(),
-                XsdType::create('array')
+                XsdType::create('array')->withBaseType('array')
             ),
             $result->fetchByName('TestReturnList')
         );
@@ -87,7 +87,7 @@ final class MethodsParserTest extends TestCase
                     new Parameter('parameter1', XsdType::create('Test1')),
                     new Parameter('parameter2', XsdType::create('Test2')),
                 ),
-                XsdType::create('array')
+                XsdType::create('array')->withBaseType('array')
             ),
             $result->fetchByName('TestReturnListWithParams')
         );

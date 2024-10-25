@@ -17,7 +17,7 @@ final class ExtSoapOptionsResolverFactory
     public static function createForWsdl(?string $wsdl): OptionsResolver
     {
         $resolver = self::create();
-        if (!$wsdl) {
+        if ($wsdl === null) {
             $resolver = clone $resolver;
             $resolver->setRequired(['uri', 'location']);
         }

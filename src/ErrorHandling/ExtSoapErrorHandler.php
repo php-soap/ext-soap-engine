@@ -54,7 +54,7 @@ final class ExtSoapErrorHandler
     {
         [$result, $lastMessage] = (new self)($fun);
 
-        if ($lastMessage) {
+        if ($lastMessage !== null) {
             throw RequestException::internalSoapError($lastMessage);
         }
 

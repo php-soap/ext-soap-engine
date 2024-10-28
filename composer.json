@@ -31,6 +31,6 @@
     "require-dev": {
         "php-soap/engine-integration-tests": "^1.9",
         "php-soap/xml": "^1.8",
-        "phpunit/phpunit": "^10.0.19"
+        "phpunit/phpunit": "^10.0.19 || ^11.0.0"
     }
 }

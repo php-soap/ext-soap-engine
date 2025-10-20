@@ -41,7 +41,7 @@ final class MethodsParser
 
     private function transformListResponseToArray(string $methodString): string
     {
-        return preg_replace('/^list\(([^\)]*)\)(.*)/i', 'array$2', $methodString);
+        return (string) preg_replace('/^list\(([^\)]*)\)(.*)/i', 'array$2', $methodString);
     }
 
     private function parseParameters(string $methodString): ParameterCollection
@@ -51,7 +51,7 @@ final class MethodsParser
             return new ParameterCollection();
         }
 
-        $parameters = preg_split('/,\s?/', $properties[1]);
+        $parameters = preg_split('/,\s?/', $properties[1]) ?: [];
 
         return new ParameterCollection(...array_map(
             function (string $parameter): Parameter {

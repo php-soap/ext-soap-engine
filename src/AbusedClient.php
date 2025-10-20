@@ -49,7 +49,8 @@ final class AbusedClient extends SoapClient
         string $location,
         string $action,
         int $version,
-        bool $one_way = false
+        bool $one_way = false,
+        ?string $uriParserClass = null,
     ): string {
         $this->storedRequest = new SoapRequest($request, $location, $action, $version, $one_way);
 

@@ -43,10 +43,7 @@ final class EnumTest extends AbstractSoapTestCase
         static::assertCount(0, $types);
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function test_it_knows_how_to_add_enums()
     {
         $input = 'Home';
@@ -59,10 +56,7 @@ final class EnumTest extends AbstractSoapTestCase
         static::assertStringContainsString('<output xsi:type="ns2:PhoneTypeEnum">Home</output>', $lastRequestInfo->getLastResponse());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function test_it_does_not_validate_enums()
     {
         $input = 'INVALID';
@@ -74,10 +68,7 @@ final class EnumTest extends AbstractSoapTestCase
         static::assertStringContainsString('<output xsi:type="ns2:PhoneTypeEnum">INVALID</output>', $lastRequestInfo->getLastResponse());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function test_it_does_not_validate_enum_types()
     {
         $input = 123;
@@ -89,10 +80,7 @@ final class EnumTest extends AbstractSoapTestCase
         static::assertStringContainsString('<output xsi:type="ns2:PhoneTypeEnum">123</output>', $lastRequestInfo->getLastResponse());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function test_it_can_be_transformed_with_type_map()
     {
         $this->driver = $this->configureSoapDriver($this->wsdl, [

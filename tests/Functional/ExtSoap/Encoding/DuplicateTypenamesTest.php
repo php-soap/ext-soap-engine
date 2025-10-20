@@ -52,10 +52,7 @@ final class DuplicateTypenamesTest extends AbstractSoapTestCase
         static::assertEquals([...$store2->getProperties()][0]->getName(), 'Attribute2');
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function test_it_knows_how_to_encode_both_types()
     {
         $engine = new SimpleEngine($this->driver, $this->transport);
@@ -74,10 +71,7 @@ final class DuplicateTypenamesTest extends AbstractSoapTestCase
         static::assertStringContainsString('<output2 xsi:type="ns3:Store"><Attribute2 xsi:type="xsd:string">ok</Attribute2></output2>', $lastRequestInfo->getLastResponse());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function test_it_uses_same_model_for_both_objects()
     {
         $this->driver = $this->configureSoapDriver($this->wsdl, [
@@ -116,10 +110,7 @@ final class DuplicateTypenamesTest extends AbstractSoapTestCase
         static::assertStringContainsString('<output2 xsi:type="ns3:Store"><Attribute2 xsi:type="xsd:string">attr2</Attribute2></output2>', $lastRequestInfo->getLastResponse());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[\PHPUnit\Framework\Attributes\RunInSeparateProcess]
     public function test_it_is_possible_to_override_a_single_instance_with_typemap()
     {
         $this->driver = $this->configureSoapDriver($this->wsdl, [

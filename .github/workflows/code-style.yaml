@@ -7,7 +7,7 @@ jobs:
         strategy:
             matrix:
                 operating-system: [ubuntu-latest]
-                php-versions: [ '8.2', '8.3', '8.4' ]
+                php-versions: [ '8.3', '8.4', '8.5' ]
                 composer-options: [ '--ignore-platform-req=php+' ]
             fail-fast: false
         name: PHP ${{ matrix.php-versions }} @ ${{ matrix.operating-system }}
@@ -23,4 +23,4 @@ jobs:
             - name: Install dependencies
               run: composer update --prefer-dist --no-progress --no-suggest ${{ matrix.composer-options }}
             - name: Run the tests
-              run: PHP_CS_FIXER_IGNORE_ENV=1 ./tools/php-cs-fixer.phar fix --dry-run
+              run: PHP_CS_FIXER_IGNORE_ENV=1 ./vendor/bin/php-cs-fixer fix --dry-run

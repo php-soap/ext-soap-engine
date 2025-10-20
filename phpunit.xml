@@ -1,4 +1,11 @@
-<phpunit bootstrap="./tests/bootstrap.php" colors="true">
+<phpunit 
+    bootstrap="./tests/bootstrap.php" 
+    colors="true"
+    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    displayDetailsOnTestsThatTriggerWarnings="true"
+    failOnWarning="true"
+    failOnPhpunitWarning="true">
     <testsuites>
         <testsuite name="Functional">
             <directory>./tests/Functional</directory>

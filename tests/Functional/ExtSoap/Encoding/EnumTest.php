@@ -6,6 +6,7 @@ namespace SoapTest\ExtSoapEngine\Functional\ExtSoap\Encoding;
 
 use DOMDocument;
 use Exception;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Soap\Engine\SimpleEngine;
 use Soap\ExtSoapEngine\ExtSoapDriver;
 use Soap\ExtSoapEngine\Transport\TraceableTransport;
@@ -43,10 +44,7 @@ final class EnumTest extends AbstractSoapTestCase
         static::assertCount(0, $types);
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function test_it_knows_how_to_add_enums()
     {
         $input = 'Home';
@@ -59,10 +57,7 @@ final class EnumTest extends AbstractSoapTestCase
         static::assertStringContainsString('<output xsi:type="ns2:PhoneTypeEnum">Home</output>', $lastRequestInfo->getLastResponse());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function test_it_does_not_validate_enums()
     {
         $input = 'INVALID';
@@ -74,10 +69,7 @@ final class EnumTest extends AbstractSoapTestCase
         static::assertStringContainsString('<output xsi:type="ns2:PhoneTypeEnum">INVALID</output>', $lastRequestInfo->getLastResponse());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function test_it_does_not_validate_enum_types()
     {
         $input = 123;
@@ -89,10 +81,7 @@ final class EnumTest extends AbstractSoapTestCase
         static::assertStringContainsString('<output xsi:type="ns2:PhoneTypeEnum">123</output>', $lastRequestInfo->getLastResponse());
     }
 
-    /**
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function test_it_can_be_transformed_with_type_map()
     {
         $this->driver = $this->configureSoapDriver($this->wsdl, [

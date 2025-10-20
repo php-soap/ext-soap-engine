@@ -20,7 +20,7 @@ final class ExtSoapServerTransport implements Transport
     {
         ob_start();
         $this->server->handle($request->getRequest());
-        $responseBody = ob_get_contents();
+        $responseBody = (string) ob_get_contents();
         ob_end_clean();
 
         return new SoapResponse($responseBody);

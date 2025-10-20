@@ -20,17 +20,19 @@
         }
     ],
     "require": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0",
+        "php": "~8.3.0 || ~8.4.0 || ~8.5.0",
         "ext-soap": "*",
         "ext-dom": "*",
-        "azjezz/psl": "^3.0",
-        "php-soap/engine": "^2.13",
-        "php-soap/wsdl": "^1.12",
+        "azjezz/psl": "^3.0 || ^4.0",
+        "php-soap/engine": "^2.16",
+        "php-soap/wsdl": "^1.14",
         "symfony/options-resolver": "^5.4 || ^6.0 || ^7.0"
     },
     "require-dev": {
-        "php-soap/engine-integration-tests": "^1.9",
-        "php-soap/xml": "^1.8",
-        "phpunit/phpunit": "^10.0.19 || ^11.0.0"
+        "php-soap/engine-integration-tests": "^1.10",
+        "php-soap/xml": "^1.9",
+        "phpunit/phpunit": "~12.3",
+        "vimeo/psalm": "~6.13",
+        "php-cs-fixer/shim": "~3.88"
     }
 }

@@ -26,7 +26,7 @@
         "azjezz/psl": "^3.0 || ^4.0",
         "php-soap/engine": "^2.16",
         "php-soap/wsdl": "^1.14",
-        "symfony/options-resolver": "^5.4 || ^6.0 || ^7.0"
+        "symfony/options-resolver": "^5.4 || ^6.0 || ^7.0 || ^8.0"
     },
     "require-dev": {
         "php-soap/engine-integration-tests": "^1.10",

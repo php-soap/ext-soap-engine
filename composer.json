@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "php": "~8.4.0 || ~8.5.0",
+        "php": "~8.4.0 || ~8.5.0 || ~8.6.0",
         "ext-soap": "*",
         "ext-dom": "*",
         "php-standard-library/file": "^6.1",

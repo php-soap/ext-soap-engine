@@ -35,7 +35,7 @@
         "php-soap/engine-integration-tests": "^1.12",
         "php-soap/xml": "^1.10",
         "phpunit/phpunit": "~12.3",
-        "vimeo/psalm": "~6.13",
+        "vimeo/psalm": "~7.12",
         "php-cs-fixer/shim": "~3.88"
     }
 }

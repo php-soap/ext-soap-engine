@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Soap\ExtSoapEngine;
 
-use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMap;
 use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMapCollection;
+use Soap\ExtSoapEngine\Configuration\ClassMap\ClassMapInterface;
 use Soap\ExtSoapEngine\Configuration\TypeConverter\TypeConverterCollection;
 use Soap\ExtSoapEngine\Configuration\TypeConverter\TypeConverterInterface;
 use Symfony\Component\OptionsResolver\Options;
@@ -96,7 +96,7 @@ final class ExtSoapOptionsResolverFactory
             }
 
             return array_map(
-                static function (ClassMap $classMap) {
+                static function (ClassMapInterface $classMap) {
                     return $classMap->getPhpClassName();
                 },
                 iterator_to_array($value)
